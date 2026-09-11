@@ -1,0 +1,74 @@
+{
+  "origin_mode": "live",
+  "brief": {
+    "title": "从2015年的Bloodborne访谈，看地图结构的一次取舍",
+    "column": "behind_the_game",
+    "content_form": "creator",
+    "pool": "evergreen",
+    "reader_question": "宫崎英高在这段历史访谈中，怎样说明地图与枢纽结构的结合？",
+    "angle": "聚焦一段旧访谈的地图设计回答，不扩张成其全部作品的设计意图",
+    "thesis": "该次访谈中的回答把相互连通的区域与中央枢纽/传送安排放在一起讨论",
+    "original_contribution": "保留原始时间，区分原话、中文概述和对实际场景的解释",
+    "reader_value": "宫崎英高在这段历史访谈中，怎样说明地图与枢纽结构的结合？",
+    "scope_confirmed": true,
+    "estimated_human_minutes": 25,
+    "missing_evidence": [
+      "重新阅读原访谈并核对中文概述；不能写成最新采访",
+      "补充对应场景或地图演示，不伪造作者实机体验",
+      "如稿件要使用“总监”等正式职务，另补具体作品credits；本包只记录访谈受访创作者表述"
+    ],
+    "notes": "真实出处参考研究包，不是完成稿；所有主张待你打开原文核验。没有声称本人游玩经历。"
+  },
+  "sources": [
+    {
+      "id": "bloodborne-2015-interview",
+      "title": "A Conversation with Bloodborne Creator Hidetaka Miyazaki",
+      "url": "https://blog.playstation.com/2015/03/20/a-conversation-with-bloodborne-creator-hidetaka-miyazaki/",
+      "source_type": "interview",
+      "role": "fact",
+      "publisher": "官方来源，见网址",
+      "original_date": "2015-03-20",
+      "read_at": "2026-09-11T03:58:34.564049+00:00",
+      "read_status": "read",
+      "summary": "PlayStation Blog于2015-03-20刊发这次访谈。在地图设计问题中，受访者说明结合相互连接的区域与中央枢纽、传送和避难安排。本参考摘要不把历史采访改写为现在的新声明。",
+      "locator": "地图设计问题：interconnected / hub-based approaches",
+      "is_primary": true,
+      "provenance": "import",
+      "access_note": "仅供研究起点；摘要曾经查阅，但导入后不继承人工核验状态。"
+    }
+  ],
+  "claims": [
+    {
+      "id": "miyazaki-work-role",
+      "text": "该访谈标题将宫崎英高介绍为Bloodborne创作者；这里仅按该次访谈的受访身份使用。",
+      "source_ids": [
+        "bloodborne-2015-interview"
+      ],
+      "kind": "role",
+      "locator": "文章标题与受访者问答",
+      "status": "pending",
+      "data": {
+        "person": "宫崎英高",
+        "work": "Bloodborne",
+        "role": "受访创作者（原访谈标题表述）",
+        "as_of": "2015-03-20"
+      }
+    },
+    {
+      "id": "miyazaki-map-quote",
+      "text": "原文短引：I wanted to take the best of both approaches.",
+      "source_ids": [
+        "bloodborne-2015-interview"
+      ],
+      "kind": "quote",
+      "locator": "关于地图结构的提问与回答",
+      "status": "pending",
+      "data": {
+        "quote_mode": "direct",
+        "original_text": "I wanted to take the best of both approaches.",
+        "original_date": "2015-03-20"
+      }
+    }
+  ],
+  "assets": []
+}

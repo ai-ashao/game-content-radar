@@ -1,0 +1,21 @@
+{
+  "mode": "renderer-api-bridge",
+  "native_storage_tested": false,
+  "status": "passed",
+  "page_errors": [],
+  "checks": [
+    "empty UI",
+    "example isolation",
+    "topic search",
+    "draft editor",
+    "Markdown preview",
+    "claim source reference",
+    "unsaved edit cache",
+    "actual server stop",
+    "disconnected indicator",
+    "actual server restart",
+    "reconnect keeps editing",
+    "persist new revision",
+    "390px no overflow"
+  ]
+}

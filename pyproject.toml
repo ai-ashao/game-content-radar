@@ -3,30 +3,26 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "game-content-radar"
-version = "0.3.0"
-description = "Game demand radar + Xiaoheihe content engine + preliminary SEO opportunity radar"
-readme = "README.md"
+name = "heybox-content-studio"
+version = "2.0.0"
+description = "Local editorial workbench for evidence-grounded PC game writing"
 requires-python = ">=3.11"
-dependencies = [
-  "requests>=2.31,<3",
-  "PyYAML>=6,<7",
-  "beautifulsoup4>=4.12,<5",
-  "fastapi>=0.115,<1",
-  "uvicorn>=0.30,<1",
-]
+readme = "README.md"
+dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1", "pydantic>=2.9,<3", "requests>=2.31,<3", "PyYAML>=6,<7", "beautifulsoup4>=4.12,<5", "python-multipart>=0.0.18,<1", "Pillow>=10.4,<13"]
 
 [project.optional-dependencies]
-dev = ["pytest>=8,<9"]
+dev = ["pytest>=8,<10", "httpx>=0.27,<1"]
+browser = ["playwright>=1.48,<2"]
 
 [project.scripts]
-game-radar = "game_content_radar.cli:main"
+heybox-studio = "heybox_content_studio.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+include = ["heybox_content_studio*"]
 
 [tool.setuptools.package-data]
-game_content_radar = ["web_ui/*.html"]
+heybox_content_studio = ["web_ui/*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

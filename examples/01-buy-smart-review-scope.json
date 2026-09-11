@@ -1,0 +1,54 @@
+{
+  "origin_mode": "live",
+  "brief": {
+    "title": "看Steam好评率前，先弄清这份数据统计了谁",
+    "column": "buy_smart",
+    "content_form": "ratings",
+    "pool": "evergreen",
+    "reader_question": "Steam评价筛选参数如何影响我们理解好评率？",
+    "angle": "先解释查询口径，再加入一到两款游戏的同口径实际数据",
+    "thesis": "评价统计需先讲明筛选范围，不能把局部评论当全体玩家",
+    "original_contribution": "对照官方字段含义与一个真实查询示例，不把高分自动解释为适合所有人",
+    "reader_value": "Steam评价筛选参数如何影响我们理解好评率？",
+    "scope_confirmed": true,
+    "estimated_human_minutes": 25,
+    "missing_evidence": [
+      "在本机补充选定游戏的当前Steam查询摘要及同口径分子分母",
+      "补入实际rating主张；本文件没有当前游戏评分",
+      "决定是否使用截图，并核实素材来源"
+    ],
+    "notes": "真实出处参考研究包，不是完成稿；所有主张待你打开原文核验。没有声称本人游玩经历。"
+  },
+  "sources": [
+    {
+      "id": "steam-reviews-doc",
+      "title": "Steam官方：User Reviews API",
+      "url": "https://partner.steamgames.com/doc/store/getreviews",
+      "source_type": "official",
+      "role": "fact",
+      "publisher": "官方来源，见网址",
+      "original_date": null,
+      "read_at": "2026-09-11T03:58:34.564049+00:00",
+      "read_status": "read",
+      "summary": "查询摘要提供total_positive、total_negative、total_reviews等字段，统计解释应保留language、review_type、purchase_type等筛选参数。单页评论片段不能当总体；day_range的说明不是可直接获得官方完整最近30天好评率的承诺。",
+      "locator": "Parameters / Response",
+      "is_primary": true,
+      "provenance": "import",
+      "access_note": "仅供研究起点；摘要曾经查阅，但导入后不继承人工核验状态。"
+    }
+  ],
+  "claims": [
+    {
+      "id": "review-scope",
+      "text": "评价查询摘要与所使用的筛选参数应当一起保存和解释。",
+      "source_ids": [
+        "steam-reviews-doc"
+      ],
+      "kind": "fact",
+      "locator": "Parameters / query_summary",
+      "status": "pending",
+      "data": {}
+    }
+  ],
+  "assets": []
+}

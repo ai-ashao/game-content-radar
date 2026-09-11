@@ -1,0 +1,14 @@
+# 设置主要在网页保存到 data/editorial/settings.json。本文件为配置字段示意，
+# 不会静默覆盖已有设置。首次启动不需要改它。
+reviewer_name: 本机编辑
+column_mix: {buy_smart: 40, classic_rediscovery: 40, behind_the_game: 20}
+daily_minutes: 45
+weekly_minutes: 240
+heavy_posts_per_week: 2
+daily_posts_max: 2
+price_fresh_minutes: 30
+min_review_count: 100
+country: CN
+llm_mode: manual
+# 手动导出资料包 / 导入网页AI初稿不需要新增付费API。
+# 可在网页切换codex；仅调用本机已安装和已认证的Codex。

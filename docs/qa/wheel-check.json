@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "entry_points": "[console_scripts]\nheybox-studio = heybox_content_studio.cli:main\n",
+  "static_assets_packaged": true,
+  "old_namespace_excluded": true,
+  "isolated_wheel_import_api": "wheel import + web/static API PASS"
+}

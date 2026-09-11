@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark"><title>盒友编辑台 · Heybox Content Studio</title>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/style.css">
+<script src="/static/app.js" defer></script>
+</head>
+<body>
+<aside class="sidebar">
+ <a class="brand" href="#" aria-label="盒友编辑台首页"><span class="brand-mark">H<span>·</span></span><span><b>盒友编辑台</b><small>HEYBOX CONTENT STUDIO</small></span></a>
+ <div class="workspace-label">个人编辑工作区 <span>LOCAL</span></div>
+ <nav aria-label="主导航">
+  <button class="nav active" data-view="dashboard"><span class="nav-icon">◫</span>今日工作台</button>
+  <button class="nav" data-view="topics"><span class="nav-icon">▤</span>选题库 <span id="navCount" class="nav-count">—</span></button>
+  <button class="nav" data-view="subjects"><span class="nav-icon">◇</span>题材与资料</button>
+  <button class="nav" data-view="calendar"><span class="nav-icon">▦</span>排期与发布</button>
+  <button class="nav" data-view="analytics"><span class="nav-icon">▥</span>数据复盘</button>
+ </nav>
+ <div class="sidebar-section">编辑方向</div>
+ <button class="column-nav" data-column="buy_smart"><span class="column-dot buy"></span>买得明白 <small>选购 / 筛选 / 新游</small></button>
+ <button class="column-nav" data-column="classic_rediscovery"><span class="column-dot classic"></span>经典再发现 <small>回顾 / 细节 / 设计</small></button>
+ <button class="column-nav" data-column="behind_the_game"><span class="column-dot behind"></span>作品背后 <small>制作人 / 开发故事</small></button>
+ <div class="sidebar-bottom">
+  <button class="nav" data-view="legacy"><span class="nav-icon">▣</span>旧版归档</button>
+  <button class="nav" data-view="settings"><span class="nav-icon">⚙</span>设置与来源</button>
+  <div class="local-note"><span class="avatar">编</span><span>本地优先 · 人工审核<small>非小黑盒官方产品</small></span></div>
+ </div>
+</aside>
+<div class="main-shell">
+ <header class="topbar"><div class="breadcrumb">工作区 <span>/</span> <strong id="viewName">今日工作台</strong></div><div class="top-right"><span class="version">V2.0</span><button id="connection" class="connection checking" title="查看本地服务连接"><span class="status-dot"></span><span id="connectionText">正在连接</span></button></div></header>
+ <div id="connectionBanner" class="banner danger" hidden role="alert"></div>
+ <div id="exampleBanner" class="banner amber" hidden><strong>示例工作区</strong> · 这里的资料是人工构造的界面样例，不是真实新闻，不能发布。真实资料库不会被覆盖。<button id="returnLive">返回真实工作区</button></div>
+ <main id="view" tabindex="-1"></main>
+ <footer class="page-footer">盒友编辑台 <span>买得明白，玩得更懂。</span><span>资料核验 → 人工审稿 → 手动发布</span></footer>
+</div>
+<div id="editorOverlay" class="overlay" hidden>
+ <section class="editor" role="dialog" aria-modal="true" aria-labelledby="editorHeading">
+  <header class="editor-header"><div><div id="editorKicker" class="eyebrow">选题工作台</div><h2 id="editorHeading">编辑选题</h2></div><div class="row"><span id="editorState" class="tag"></span><button id="closeEditor" class="icon-button" aria-label="关闭选题编辑器">×</button></div></header>
+  <div class="editor-tabs" role="tablist"><button data-tab="brief" role="tab">01 选题简报</button><button data-tab="research" role="tab">02 研究资料</button><button data-tab="draft" role="tab">03 编辑与审核</button><button data-tab="publish" role="tab">04 排期与记录</button></div>
+  <div id="editorContent" class="editor-content"></div>
+ </section>
+</div>
+<div id="modalOverlay" class="overlay modal-overlay" hidden>
+ <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><header class="row between"><h2 id="modalTitle"></h2><button id="closeModal" class="icon-button" aria-label="关闭对话框">×</button></header><div id="modalContent"></div></section>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body></html>

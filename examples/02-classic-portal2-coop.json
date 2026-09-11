@@ -1,0 +1,54 @@
+{
+  "origin_mode": "live",
+  "brief": {
+    "title": "重看Portal 2：合作模式为什么不能只理解为多一个人",
+    "column": "classic_rediscovery",
+    "content_form": "classic",
+    "pool": "evergreen",
+    "reader_question": "Portal 2的合作内容和单人模式，至少在哪些已确认的范围上不同？",
+    "angle": "以官方对合作模式的介绍为基础，再选择一个具体场景补充对照",
+    "thesis": "独立的合作剧情、房间与角色，是区分两种模式的明确起点",
+    "original_contribution": "区分官方确认内容与对合作解谜的编辑解释，避免只重述剧情",
+    "reader_value": "Portal 2的合作内容和单人模式，至少在哪些已确认的范围上不同？",
+    "scope_confirmed": true,
+    "estimated_human_minutes": 25,
+    "missing_evidence": [
+      "补充一个真实合作场景和对应画面/时间码",
+      "将具体场景的观察与个人解读分别建主张",
+      "确认图文范围，不泄露重要解谜答案"
+    ],
+    "notes": "真实出处参考研究包，不是完成稿；所有主张待你打开原文核验。没有声称本人游玩经历。"
+  },
+  "sources": [
+    {
+      "id": "portal2-store",
+      "title": "Portal 2官方Steam商店页",
+      "url": "https://store.steampowered.com/app/620/Portal_2/",
+      "source_type": "official",
+      "role": "fact",
+      "publisher": "官方来源，见网址",
+      "original_date": null,
+      "read_at": "2026-09-11T03:58:34.564049+00:00",
+      "read_status": "read",
+      "summary": "About This Game说明合作模式为两人设计，具有独立的故事、测试房间和两个新的玩家角色。本参考包不采用商店动态显示的地区价格或当前评价数字。",
+      "locator": "About This Game：two-player co-operative mode",
+      "is_primary": true,
+      "provenance": "import",
+      "access_note": "仅供研究起点；摘要曾经查阅，但导入后不继承人工核验状态。"
+    }
+  ],
+  "claims": [
+    {
+      "id": "portal2-coop",
+      "text": "官方商店将两人合作模式描述为具有独立故事、测试房间和玩家角色的内容。",
+      "source_ids": [
+        "portal2-store"
+      ],
+      "kind": "fact",
+      "locator": "About This Game：two-player co-operative mode",
+      "status": "pending",
+      "data": {}
+    }
+  ],
+  "assets": []
+}

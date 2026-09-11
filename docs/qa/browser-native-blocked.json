@@ -1,0 +1,8 @@
+{
+  "mode": "native-browser-http",
+  "native_storage_tested": false,
+  "status": "failed",
+  "error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:38495/\nCall log:\n  - navigating to \"http://127.0.0.1:38495/\", waiting until \"domcontentloaded\"\n",
+  "page_errors": [],
+  "native_mode_requested": true
+}

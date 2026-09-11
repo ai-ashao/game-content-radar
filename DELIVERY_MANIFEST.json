@@ -1,0 +1,357 @@
+{
+  "name": "heybox-content-studio",
+  "version": "2.0.0",
+  "base_commit": "4fc766ffcadae23fe51b7772ea8408515f3189cc",
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "c3c4f10decda6ecc77a63825e18c0aed5f8e0320e77c4c99afcec3ac41dbfc34",
+      "bytes": 151
+    },
+    {
+      "path": "APPLY.md",
+      "sha256": "b53affc285c55a980c3a7f782a37ca98bb2d13fb3abb8295f3c9915eb427925c",
+      "bytes": 3286
+    },
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "70f8ff19090bab65a09abf9a8f4570d184d01923809db0281b3fa25709c4f521",
+      "bytes": 1623
+    },
+    {
+      "path": "DEVELOPMENT_SPEC.md",
+      "sha256": "220673ae13b68301941ba29a727b47480b26414dd51f6b0792e2196b01f64789",
+      "bytes": 4182
+    },
+    {
+      "path": "QUALITY_REPORT.md",
+      "sha256": "cdebc3d9389b81fbb50b82916e8bfec485a9480aa4301f1c52b0b6aa9b64b81f",
+      "bytes": 5149
+    },
+    {
+      "path": "README.md",
+      "sha256": "6f09e3058a82db0ba54652f8204bc2e1a66bd265c6696a7ac367b88c5bb010a0",
+      "bytes": 10197
+    },
+    {
+      "path": "config/editorial.example.yaml",
+      "sha256": "4e3b891a1de8205c44c048dd7b4c8038e45f5b307a9b8a9b09ccf1036d3c8407",
+      "bytes": 572
+    },
+    {
+      "path": "docs/ACCEPTANCE_MATRIX.md",
+      "sha256": "ec23ab801dcd8c9eb0bcdbc492f1e1a58ba8210fa0339addb3d674cc229ef198",
+      "bytes": 4563
+    },
+    {
+      "path": "docs/FEATURE_STATUS.md",
+      "sha256": "31a5d53bb4cb90f8d90d115fa313463e2bdaca62ab80343e5e0250ca3e17c412",
+      "bytes": 3376
+    },
+    {
+      "path": "docs/SOURCES_AND_PROVENANCE.md",
+      "sha256": "51b5c39f202bb460fb1e9c0060b42749b92db490de0bf5aadb9a03aaa2006d20",
+      "bytes": 2417
+    },
+    {
+      "path": "docs/qa/browser-bridge.json",
+      "sha256": "b98aa7875f1f378ce91a3822431dc4159b404e6b3bde9ad6dc455bd04b492e84",
+      "bytes": 460
+    },
+    {
+      "path": "docs/qa/browser-native-blocked.json",
+      "sha256": "1063e104acfd633a68e247673f2e2405fa020778c84e061b8ba488373b6c6286",
+      "bytes": 327
+    },
+    {
+      "path": "docs/qa/browser-native-macos.json",
+      "sha256": "3a5e16d7a0f26bbef2707f9266601639da208ec35c2ac6bff6f05a26e3f6c496",
+      "bytes": 493
+    },
+    {
+      "path": "docs/qa/environment.json",
+      "sha256": "465674d1e25ab13a264e43cb838cc68b9225689289e4195006deb86b89f7d01e",
+      "bytes": 355
+    },
+    {
+      "path": "docs/qa/pytest.txt",
+      "sha256": "a35a02cc23d4a0c99eb5e830df144d0bd9499ffadd91ba0b3075861447b6c1af",
+      "bytes": 1042
+    },
+    {
+      "path": "docs/qa/wheel-check.json",
+      "sha256": "2b4f40232baf5e327e5a3f0be85f67633fd9576cfed7cd620ee33ee1f6574710",
+      "bytes": 250
+    },
+    {
+      "path": "docs/research/HEYBOX_CONTENT_STUDIO_V2_REFACTOR_PLAN.md",
+      "sha256": "e2f308fab003454155d9040d8bc66589ffcfc384d2546436a038128f9ac4983b",
+      "bytes": 47503
+    },
+    {
+      "path": "docs/research/XHH_RESEARCH_EVIDENCE_2026-09-11.json",
+      "sha256": "07bbee1022f6cfd602bd99a5df412f98799dc3afd545694fc95da00c799dcbae",
+      "bytes": 44948
+    },
+    {
+      "path": "docs/research/XIAOHEIHE_EDITORIAL_RESEARCH_2026-09-11.md",
+      "sha256": "425a247f42b62a7f29a5d228088056c8c51c4312b0ec25319d1f0568184e9ed3",
+      "bytes": 22328
+    },
+    {
+      "path": "docs/screenshots/editor-example.png",
+      "sha256": "298a7e9f26550add6f0195b54d5cd16d7441ab3a197204bce6577a06c0b81b04",
+      "bytes": 167893
+    },
+    {
+      "path": "docs/screenshots/mobile-example.png",
+      "sha256": "bb28dfe2f7c47c39d8ca7db5be7869c26d0dcf343b2b9be6118f089a34a4f058",
+      "bytes": 179546
+    },
+    {
+      "path": "docs/screenshots/workspace-example.png",
+      "sha256": "5e6dae64e82c7970a5e66614cf969461c900f0e1500bd23e9d6e3e349b803dd5",
+      "bytes": 230882
+    },
+    {
+      "path": "examples/01-buy-smart-review-scope.json",
+      "sha256": "e542458c4f9d14ea8f3290320339cbb2023b2d13e0e55ad14db553d97e8264cf",
+      "bytes": 2366
+    },
+    {
+      "path": "examples/02-classic-portal2-coop.json",
+      "sha256": "5cd2050ae5c6cadf10cf89df388b6d3eabb5aa6039dd5276c65411927cb8c80e",
+      "bytes": 2392
+    },
+    {
+      "path": "examples/03-creator-miyazaki-bloodborne.json",
+      "sha256": "97c4a3f1b00ba8158fb21b3d5d96e828f4b228108602b8a4a4656df8fc2d92d1",
+      "bytes": 3262
+    },
+    {
+      "path": "examples/README.md",
+      "sha256": "ac5e719b2a64f258bc64f0e12520867c10949c4e8822a45c09196caef4bb3487",
+      "bytes": 1659
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "c7e165e9e51a0695a0bb85360af11d1a84ed533d049ae343c33bfca007359eb8",
+      "bytes": 891
+    },
+    {
+      "path": "scripts/_bootstrap.sh",
+      "sha256": "388af5d4fad7376bf3ff8dfd21e2e957f9c6cb6d3a51899323505c89ad4344f5",
+      "bytes": 1379
+    },
+    {
+      "path": "scripts/browser-smoke.py",
+      "sha256": "8d76b9ee36f91b3ebc79b7c379572113524dd874f632676795c895569a904d11",
+      "bytes": 8218
+    },
+    {
+      "path": "scripts/restart-web.command",
+      "sha256": "f727a2a728e1838e41073a8dd22ddb65be212598d8ad36718d89dcabb1e7e1cd",
+      "bytes": 234
+    },
+    {
+      "path": "scripts/start-web.command",
+      "sha256": "1079eb69564fe666982fc8a06ef46cdff6c4dc41b08e688fa021cc64018451b9",
+      "bytes": 232
+    },
+    {
+      "path": "scripts/stop-web.command",
+      "sha256": "81577d5c445451fb2b0a101f28330c2bf4ef70bf9ec8fc9e4d379478d901a769",
+      "bytes": 231
+    },
+    {
+      "path": "scripts/view-logs.command",
+      "sha256": "a23a492905f0232b4fdc67da3245fcce3c3ea73ebeba12beab498f7720398c89",
+      "bytes": 228
+    },
+    {
+      "path": "src/heybox_content_studio/__init__.py",
+      "sha256": "b90a9278ba5525fe9c6766f7fb0012ea23c853cdb268a3a494b53f4c03017ed9",
+      "bytes": 149
+    },
+    {
+      "path": "src/heybox_content_studio/__main__.py",
+      "sha256": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4",
+      "bytes": 47
+    },
+    {
+      "path": "src/heybox_content_studio/cli.py",
+      "sha256": "c0fa799af9ca044331772e4fa76adbfa1a6dc1c7a6f47b6aa2ed90dd456108d0",
+      "bytes": 3622
+    },
+    {
+      "path": "src/heybox_content_studio/collection.py",
+      "sha256": "32a7f3cd9e91010b99e1b696e4d4994beb03f3a6bb4bdf82939ff713429cb9e8",
+      "bytes": 5712
+    },
+    {
+      "path": "src/heybox_content_studio/collectors/__init__.py",
+      "sha256": "1dc7f9d05481eb783ade01079decf3d5c588d3dac783d1fabb98fba41ba590ec",
+      "bytes": 73
+    },
+    {
+      "path": "src/heybox_content_studio/collectors/base.py",
+      "sha256": "1c389edd0de06c16693dcc9d9b1bf537206451fd8506f62dd517df898192680e",
+      "bytes": 424
+    },
+    {
+      "path": "src/heybox_content_studio/collectors/details.py",
+      "sha256": "5a8a18c49cb598f620e5cdab819d30506dea112906b41d12adc8e39f782a8589",
+      "bytes": 1561
+    },
+    {
+      "path": "src/heybox_content_studio/collectors/epic.py",
+      "sha256": "1519b474d8dfab4ac61a0cfea2edbaff03c644741ce1f4eb9004f8ad2fda973a",
+      "bytes": 4103
+    },
+    {
+      "path": "src/heybox_content_studio/collectors/reddit.py",
+      "sha256": "0cb8b4339dbc64a41a6bb23f0b4edcbc71237d78b551065192ee5988c45e4b2a",
+      "bytes": 2390
+    },
+    {
+      "path": "src/heybox_content_studio/collectors/reviews.py",
+      "sha256": "36098ec94f6183b147014e97880d16345e99bec0f29bbd94d024fa9ec7cfb702",
+      "bytes": 2442
+    },
+    {
+      "path": "src/heybox_content_studio/collectors/rss.py",
+      "sha256": "c53bb66337f769c801fa1defcd95ec0218a821d1780409c1204727af098d4e1c",
+      "bytes": 2653
+    },
+    {
+      "path": "src/heybox_content_studio/collectors/steam.py",
+      "sha256": "73fb7242e10dee622c01840ffc4f3fb918826e04ed6328ced6dd0d72010d1572",
+      "bytes": 7160
+    },
+    {
+      "path": "src/heybox_content_studio/collectors/xiaoheihe.py",
+      "sha256": "db2e666ad2f195370c6869a265e1b0304b21acd6c9c7fb0da1fc472cf57f781b",
+      "bytes": 2004
+    },
+    {
+      "path": "src/heybox_content_studio/demo.py",
+      "sha256": "b2df62db520985db7eae49567ffcbab7794a57bcc52a737a18f2e5e4f8ec8e96",
+      "bytes": 6089
+    },
+    {
+      "path": "src/heybox_content_studio/http.py",
+      "sha256": "14ae8d4f23b5d8682c4290a5f97443731af97fddb55f3f14d84c78528b7799d4",
+      "bytes": 4139
+    },
+    {
+      "path": "src/heybox_content_studio/jobs.py",
+      "sha256": "b17eaa430e05dfba09d75336cad0e5286ea8238417cf446852f4482d823fdc66",
+      "bytes": 2185
+    },
+    {
+      "path": "src/heybox_content_studio/legacy.py",
+      "sha256": "bfae1cbac79a543367d8a75cdd6ad3a84c95472b0a8c9589f81c21b63ed5708c",
+      "bytes": 3409
+    },
+    {
+      "path": "src/heybox_content_studio/models.py",
+      "sha256": "b811bf8c1bffd828f40bd69ea2754cee1aea5871e6b83e4b8f9d5e8c5b64a46b",
+      "bytes": 12237
+    },
+    {
+      "path": "src/heybox_content_studio/runtime.py",
+      "sha256": "81c8a8e0a77bc3e209239c23c85b41ef7bb37e4efc7c88aa1776aca0b8172a1e",
+      "bytes": 4942
+    },
+    {
+      "path": "src/heybox_content_studio/service.py",
+      "sha256": "24dd1bfdb99615b70180394fa9716823783a25791fd0f7defb1643ba08727734",
+      "bytes": 15387
+    },
+    {
+      "path": "src/heybox_content_studio/storage.py",
+      "sha256": "7f06c3c8483b73d8c7afd1bd07ec56176466404e0bcb725f5e6bb4c0fd2d3df2",
+      "bytes": 6533
+    },
+    {
+      "path": "src/heybox_content_studio/validation.py",
+      "sha256": "e61c39641114b9673678df6489f078c5056cbcc02251e8320b8cee5906623ad3",
+      "bytes": 15106
+    },
+    {
+      "path": "src/heybox_content_studio/web_ui/app.js",
+      "sha256": "97a2856f4a0f428d84e260aa574a93130e68267f4513a13740869220e3b8eec0",
+      "bytes": 74860
+    },
+    {
+      "path": "src/heybox_content_studio/web_ui/favicon.svg",
+      "sha256": "acc56d5f5cf663b96b4241bc0e6e72d0e942cbb63d96db974c4d32fd2d834e6f",
+      "bytes": 249
+    },
+    {
+      "path": "src/heybox_content_studio/web_ui/index.html",
+      "sha256": "9104574191007355fbceb7ca35e6e4a3c102586b33a57b4fdfa3ee3e122dc26e",
+      "bytes": 4381
+    },
+    {
+      "path": "src/heybox_content_studio/web_ui/style.css",
+      "sha256": "b9c84a12375d21699c61e4ee3c7ff2428d736a4ae3047f2dbd1c84887f1f09db",
+      "bytes": 20155
+    },
+    {
+      "path": "src/heybox_content_studio/webapp.py",
+      "sha256": "6a5c048f93fdaf2ba6e56cc9c727d15133e9e3590cc3a0aa961d37c6628a45b5",
+      "bytes": 20515
+    },
+    {
+      "path": "src/heybox_content_studio/writing.py",
+      "sha256": "50e723158a971651313e0a42d38c314813c2f4feefdfe61310adde0098323f70",
+      "bytes": 9367
+    },
+    {
+      "path": "tests/conftest.py",
+      "sha256": "41e8b1d5c66763329bb3f68e5340be3bc728c85ef45a62ac235b1ed4887860ae",
+      "bytes": 2584
+    },
+    {
+      "path": "tests/test_api.py",
+      "sha256": "26b356a8d3c459dc886f05a04fd041621baeae4ecb0950bf1858c54f94125852",
+      "bytes": 8188
+    },
+    {
+      "path": "tests/test_evidence.py",
+      "sha256": "c53f9460232965f2ab1147e4428658b12af5e6396f6bfccc2e5b8ea6b3a7a8d8",
+      "bytes": 5508
+    },
+    {
+      "path": "tests/test_models_storage.py",
+      "sha256": "f289a0a6ac9d8a4ae0a33833b0e092455fc77a17176319dd22db94ac6d4ec11e",
+      "bytes": 2629
+    },
+    {
+      "path": "tests/test_reference_packs.py",
+      "sha256": "6cd217d812894bbdc46f4d79a94684a616b547a08e4fdc96fb7316071989af40",
+      "bytes": 753
+    },
+    {
+      "path": "tests/test_sources_runtime.py",
+      "sha256": "98389e481dd40d89a1409a7f91adc46f5bdeef86ec11083d31d5abe24bc25971",
+      "bytes": 6345
+    },
+    {
+      "path": "tests/test_workflow.py",
+      "sha256": "0b498bd61686b716bb6378bafbf42e6a6d15606c0bc27e588fc62db3b537fa80",
+      "bytes": 5560
+    },
+    {
+      "path": "停止盒友编辑台.command",
+      "sha256": "f574716820ef87cf5c8dd3b92606c3c28ea500e66bd7461ec5a90585c23b11f8",
+      "bytes": 111
+    },
+    {
+      "path": "启动盒友编辑台.command",
+      "sha256": "d7176ac27d2d65b23013f1334d70817a6a7e0114c8bd2f1db45ada1fe9228586",
+      "bytes": 112
+    }
+  ]
+}

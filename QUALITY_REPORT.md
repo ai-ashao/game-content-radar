@@ -1,43 +1,60 @@
-# Quality report
+# 盒友编辑台 V2.0 · 交付验收报告
 
-## Review changes applied before implementation
+日期：2026-09-11。交付类型：**完整源码包**，非增量覆盖包。未操作真实小黑盒账号。
 
-1. SteamDB moved from hard dependency to optional enrichment.
-2. Steam current-player history implemented locally via SQLite for 24h/7d spike detection.
-3. SEO score renamed to Preliminary Site Opportunity Score; SERP validation remains mandatory.
-4. Historical-low claims are evidence-gated.
-5. Epic freebies require an active promotion and a normally paid original price to avoid permanent F2P false positives.
-6. Xiaoheihe public web collector is optional and fail-soft.
-7. Reach Pick and Value Pick are selected separately.
-8. Media-plan output added.
-9. Codex CLI structured-output drafting added, with deterministic fallback.
-10. Same-game event clustering was tightened to avoid collapsing unrelated posts.
+## 结论
 
-## Automated verification
+本地功能已实现并完成下述自动测试、进程测试、网页渲染与真实本地API联调。可以进入用户本机试用。
 
-- Test suite: **11 passed**
-- Python source syntax check: **passed**
-- Offline end-to-end fixture: **passed**
-- Editable package install: **passed** with local build isolation disabled in the network-restricted test environment
-- Installed `game-radar` console command: **passed**
+**不把这些结果等同于真实网络采集、已认证Codex、Mac Finder或实际发帖效果已经验收。** 对照原计划，M0–M4为已实现本地功能；M5真人内容试用与真实来源验收尚未完成。
 
-## Tested offline output
+## 已执行且通过
 
-The fixture run successfully produced:
+| 验证层 | 结果 | 可复查记录 |
+|---|---|---|
+| Python自动测试 | **70项全部通过** | `docs/qa/pytest.txt` |
+| 数据模型/计算 | 价格SKU/地区、评价口径、引用、角色、期限、细节素材、空值 | tests/test_models_storage.py、test_evidence.py |
+| 编辑与审核 | 版本追加、人工批准、修改失效、排期、发布记录、观察指标 | tests/test_workflow.py |
+| Web API | 创建/导入/核验/审核/发布登记、版本409、图片上传、研究ZIP、安全检查 | tests/test_api.py |
+| 资料参考包 | 3份JSON可导入，全部保留待核验、无自动稿件/批准 | tests/test_reference_packs.py |
+| 来源契约 | Steam/Epic模拟响应、有限评价样本、新闻发布者、失败降级 | tests/test_sources_runtime.py |
+| 真实后台进程 | 启动父进程退出后仍响应HTTP；重复启动复用PID；拒停其他目录实例；安全停止 | `test_detached_service_survives_launcher_and_isolation` |
+| 浏览器渲染/API联调 | **Mac 原生 HTTP 模式 13 个检查点完成，0个pageerror** | `docs/qa/browser-native-macos.json` |
+| 语法检查 | Python编译、JavaScript语法、Bash启动脚本语法通过 | compileall / node --check / bash -n |
+| Wheel构建与隔离导入 | 构建通过；静态资源齐全；独立安装后首页和JS API正常；仅新CLI入口 | `docs/qa/wheel-check.json` |
 
-- daily radar report
-- Reach Pick
-- Value Pick
-- sale roundup
-- freebie roundup
-- player-spike event cluster
-- WorkshopFetch-matched troubleshooting opportunity
-- title evidence guard
-- media plans
-- preliminary SEO validation queue
+自动测试使用模拟数据/临时工作区，不调用真实小黑盒发布接口。测试中的“登记发布”是本地记录CRUD，不是执行外部发帖。
 
-Sample outputs are in `examples/`.
+### 浏览器测试的严格说明
 
-## Environment limitation
+交付包生成环境的受管Chromium曾对包括localhost在内的HTTP导航返回 `ERR_BLOCKED_BY_ADMINISTRATOR`。保留该环境的失败记录 `docs/qa/browser-native-blocked.json`，没有绕过或修改浏览器策略。
 
-The build sandbox used for development cannot resolve external DNS from shell/Python, so a full live HTTP end-to-end run could not be executed here. Network collectors are isolated and fail-soft; repeatable offline fixture tests cover pipeline behavior. Run the live smoke test on the target machine after cloning/installing.
+本次在用户 Mac 上重新运行原生 Chromium：浏览器直接访问本地 FastAPI HTTP 服务，并使用真实同源网络与 localStorage，13 个检查点全部通过。结果见 `docs/qa/browser-native-macos.json`。原有桥接结果 `docs/qa/browser-bridge.json` 继续保留，用于受管浏览器环境回归。
+
+实际检查：真实空工作区、隔离示例库、选题搜索、编辑器、Markdown预览、主张回查、未保存编辑、真实后台停止、红色断开状态、真实后台重启、重连保留文字、保存新版本、390px移动端无页面横向溢出。
+
+截图见 `docs/screenshots/`，均由该测试实际生成，使用示例资料，不是美术效果图。
+
+## 没有在本环境完成
+
+1. **真实Steam / Epic / Reddit / 小黑盒网络E2E**：运行沙箱外部网络受限。适配器代码、参数和模拟解析测试不证明用户所在地的接口一定可用。
+2. **真实Codex模型输出**：这里没有用户已认证CLI和额度。已实现调用隔离、结构化返回校验与失败大纲路径，但版本和认证需在本机验证。
+3. **Mac Finder双击后的完整人工操作**：脚本语法、后台进程和原生浏览器链路已在 Mac 验证，但尚未以 Finder 双击方式完成全流程人工验收。
+4. **三栏目真实可发布稿及运营效果**：附带三份真实出处参考研究包，全部待核验。没有实际本人游戏体验、素材授权审查、真实发布数据或平台激励结论。
+
+这些限制在功能状态中同样标明；没有写入假成功状态或假来源数量。
+
+## 内容与工程边界
+
+- 关键词/正则和字段门禁只能发现部分不一致；不能替代人核对价格、中文译文、人物职务、设计意图或隐藏细节。
+- 调查样本不是模型训练集，编辑优先级不是爆款概率。已有URL去重，不声称已实现全网语义新闻聚类。
+- 价格来源没有历史覆盖时不生成史低证明；人输入的“已核验”最终需要人承担真实性。
+- 素材上传不自动去除EXIF、不自动确认版权、不生成伪实机画面。
+- 本地单人服务，无公网用户系统；不要暴露公网。
+- 旧版历史只读保留，不因改名删除；迁移超过250MB/自定义目录需自行补备份。
+
+## 本机最小试用顺序
+
+先停旧8787服务 → 在新目录双击启动 → 示例走一遍编辑保存 → 回真实资料库 → 配置一个Steam AppID并补充资料 → 核对价格/评分口径 → 可选启用已认证Codex → 手动核验并发布。
+
+首次有真实素材后，优先试做一篇选购稿、一篇经典问题稿、一篇人物/细节稿，记录每一步失败和人工耗时。系统没有为了凑这三篇而预装假完成稿。

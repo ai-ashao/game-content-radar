@@ -1,33 +1,18 @@
 # Changelog
 
-## 0.3.0 — V1.4 Desktop-like Web UX
+## 2.0.0 — 2026-09-11 · 盒友编辑台
 
-- Changed the macOS launcher to run the local FastAPI service in the background with `nohup`.
-- Added readiness polling before opening the browser, so the dashboard only opens after the server is healthy.
-- Added PID and log management under `.game-content-radar-web.pid` and `logs/web.log`.
-- Added `scripts/stop-web.command` and `scripts/restart-web.command`.
-- Added `/api/health` with ready/busy state and active-job metadata.
-- Added real frontend health polling: green = ready, yellow = running, red = disconnected.
-- Fixed the misleading state where the UI could show a green dot next to “服务异常”.
-- Simplified the daily UI around a single primary action: **运行今日雷达**.
-- Moved config / Fixture / Offline / date controls into collapsed advanced options.
-- Renamed developer-centric labels to operator-facing Chinese labels.
-- Refined the recommendation, candidate, SEO, data-source, warnings, history, and Draft review surfaces.
+- 独立分发包 `heybox-content-studio`、模块 `heybox_content_studio`、命令 `heybox-studio`；不注册 `game-radar`。
+- 活动流程移除SEO评分、建站候选、CCU趋势研究，保留旧文件的只读归档与可校验复制迁移。
+- 三栏目、七形态；时效与常青选题分池，研究简报先于成稿，无合格题不强行补位。
+- 新增来源、主张、素材、题材、稿件版本、人工审核、排期、发布记录及观察指标模型。
+- Steam详情/评价摘要补充、同地区同SKU价格清单、同口径评分筛选；不伪造历史低价。
+- 复用/修订Steam商店与新闻、Epic、RSS、Reddit及可选小黑盒HTML采集；来源错误隔离，采集不自动生成全文。
+- 人工核验与审核分离；修改正文、来源或数据会撤销旧审核，底层数据改变使衍生清单需重算。
+- JSON原子写入、乐观锁、模式隔离、不可覆盖的稿件版本、浏览器未保存缓存与断线恢复提示。
+- 默认网页AI资料包导出/导入，可选Codex和可信外部argv适配；失败只给研究大纲。
+- 全新中文本地Web界面、移动端布局、引用预览定位、图片上传、排期及运营数据输入。
+- 脱离终端的后台启动、身份核对、健康检查、幂等启动、日志与安全停止。
+- 新增70项离线/API/流程/进程测试，以及可复现浏览器测试脚本。
 
-## 0.2.0 — V1.3 Web Dashboard
-
-- Added a local FastAPI web dashboard as the recommended daily interface.
-- Added Live / Fixture / Offline run controls with asynchronous job polling.
-- Added a prominent Fixture warning so synthetic test reports cannot be mistaken for real topic signals.
-- Added Reach Pick / Value Pick cards, Top Candidates, preliminary SEO candidate, source counts and warnings.
-- Added a draft review drawer with title alternatives, editable body/comment hook, evidence, copy and save actions.
-- Added report-history navigation and local edited-draft persistence.
-- Added `game-radar web` and a macOS double-click launcher.
-
-## 0.1.0 — V1.2
-
-- Calibrated Xiaoheihe content model against public community samples.
-- Split Xiaoheihe publish score from preliminary site/SEO opportunity score.
-- Added Steam Store, Steam News, Steam current-player history, Reddit RSS, Epic free-game sources.
-- Added optional Xiaoheihe and SteamDB public-web enrichers with fail-soft behavior.
-- Added event clustering, sale/freebie aggregation, Reach/Value selection, title evidence guard, media plans and reports.
+外部真实来源、已认证Codex调用、Mac Finder原生体验和实际发帖效果，不因以上实现而自动视为已验证；详见质量报告。

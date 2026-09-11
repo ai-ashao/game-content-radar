@@ -1,102 +1,167 @@
-# game-content-radar
+# 盒友编辑台 · Heybox Content Studio
 
-**Game Demand Radar + Xiaoheihe Content Engine + Preliminary SEO Opportunity Radar**
+**买得明白，玩得更懂。**
 
-V1.4 focuses on making the local Web Dashboard behave like a desktop tool instead of a developer server.
+V2.0 是面向中文 PC / Steam 游戏内容的本地网页编辑台。它把选题、研究资料、事实核验、初稿、人工审核、排期和发布记录放到同一个工作区。
 
-## Recommended daily use on macOS
+只做三条栏目：**买得明白 / 经典再发现 / 作品背后**。不再做 SEO 评分或建站推荐；那些属于独立的 `game-keyword-radar`。
 
-After applying this update, normally you only need to double-click:
+> 非小黑盒官方产品。不自动登录、发帖、点赞或评论，不保证平台激励资格。模型整理不等于人工事实核验。
 
-```text
-scripts/start-web.command
-```
+## 1. 第一次打开：Mac 双击启动
 
-V1.4 starts the FastAPI service in the background, waits for `/api/health` to become ready, opens the dashboard, and then the launcher process can exit. Closing the Terminal window no longer stops the dashboard.
+需要已安装 **Python 3.11 或更高版本**。旧版 macOS 的系统 Python 可能不足。
 
-Dashboard:
+1. 将完整源码解压到一个固定的本地文件夹。不要在 ZIP 预览或临时下载预览中启动。
+2. 原来的 Game Content Radar 若还占用 8787，请先运行**旧项目**的 `scripts/stop-web.command`。
+3. 双击根目录 **`启动盒友编辑台.command`**，也可以双击 `scripts/start-web.command`。
+4. 首次启动会建立本项目 `.venv` 并安装依赖，因此首次安装需要联网。成功后自动打开 `http://127.0.0.1:8787`。
+5. 显示“已就绪”后可以关闭终端，后台服务继续运行。关闭浏览器并不停止服务。
 
-```text
-http://127.0.0.1:8787
-```
+停止：双击 **`停止盒友编辑台.command`**。重启：`scripts/restart-web.command`。查看日志：`scripts/view-logs.command`。
 
-To stop or restart the background service:
-
-```text
-scripts/stop-web.command
-scripts/restart-web.command
-```
-
-Runtime log:
-
-```text
-logs/web.log
-```
-
-PID file:
-
-```text
-.game-content-radar-web.pid
-```
-
-## Web UI changes in V1.4
-
-The dashboard now defaults to the actual daily workflow:
-
-1. open the page;
-2. click **运行今日雷达**;
-3. review **覆盖型推荐** and **深度型推荐**;
-4. open/edit/copy a Draft;
-5. inspect the separate SEO / game-site candidate.
-
-Developer-oriented controls are moved into **高级选项**:
-
-- config selector;
-- real / fixture / offline mode;
-- optional report date.
-
-The default mode is **实时数据（正式使用）**.
-
-The dashboard also polls `/api/health` and shows real service state:
-
-- green: 服务正常;
-- yellow: 雷达运行中;
-- red: 服务断开.
-
-If the backend stops while the browser page is still open, the page shows a reconnect banner instead of a misleading green status dot.
-
-## CLI remains available
+若 Finder 提示没有执行权限，在项目文件夹内执行一次：
 
 ```bash
-game-radar daily --config config/codex.yaml
-game-radar web --config config/codex.yaml
+chmod +x ./*.command scripts/*.command scripts/_bootstrap.sh
 ```
 
-The CLI is still useful for automation/debugging, but the Web Dashboard is the recommended daily interface.
+服务只监听本机；不是可以直接上传 Cloudflare Pages 的静态网站，也不是公共多人 SaaS。不同目录的实例不会按端口相互强制终止。
 
-## Important: Fixture is not live data
-
-Fixture mode reads deterministic sample items from the repository. It exists only for development/testing and must not be used for actual Xiaoheihe topic decisions.
-
-## Core workflow
-
-```text
-public game signals
-→ normalize / cluster / aggregate
-→ Xiaoheihe Publish Score
-→ Reach Pick + Value Pick
-→ Chinese Draft + Media Plan
-→ preliminary SEO / game-site opportunity queue
-→ human review
-```
-
-## Development
+### 终端安装备用路径
 
 ```bash
-python -m venv .venv
+python3 --version                    # 确认 >= 3.11；必要时换成 python3.12
+python3 -m venv .venv
 source .venv/bin/activate
-pip install -e '.[dev]'
-pytest
+python -m pip install -e .
+heybox-studio start
 ```
 
-Human review remains the publishing gate; V1.4 still does not automate Xiaoheihe login or posting.
+CLI 只有 `heybox-studio`，不注册 `game-radar`，不会覆盖游戏词雷达的命令。
+
+## 2. 先试一遍网页，不需要 API Key
+
+打开 **设置与来源 → 载入示例流程**。这会建立三条演示选题，页面有醒目的黄色标记。示例工作区不能登记正式发布，不会覆盖真实工作区。
+
+然后在选题库打开“**不靠任务箭头，游戏怎样悄悄给你指路？**”：
+
+- 查看简报和研究资料；
+- 进入“编辑与审核”，查看标题、正文、主张及来源；
+- 预览正文，点击 `[C:主张ID]` 生成的来源按钮；
+- 修改并保存新版本，再查看历史版本；
+- 返回真实工作区开展实际研究。
+
+示例不是今天的游戏新闻，不能用于正式发帖。单纯载入12个角度种子也不代表已经有素材或完成稿。
+
+## 3. 每天实际怎么用
+
+### A. 有折扣、新闻或新游时
+
+点击 **更新选题池**。默认尝试 Steam 商店、配置的 Steam 游戏新闻和 Epic 限免。仅收集线索并建立候选，不会给所有线索自动写全文。
+
+选择一条候选，完善“具体读者、一个问题、角度、结论、新增贡献、人工时间”。删掉或解决“剩余补证事项”。
+
+### B. 没有合适新闻时
+
+在选题库新建常青选题，或载入角度种子。从熟悉的经典游戏、设计问题或开发访谈入手。旧资料不会只因超过72小时而被淘汰，但其中的时效价格仍需更新。
+
+### C. 把材料放进研究资料
+
+添加事实来源的摘要和原文位置，再建立主张。**只有URL、没有已读材料，不视为事实依据。**
+
+常见主张有普通事实、价格、评价统计、原始引语、作品职务、细节复现、编辑推论。表单提供常用字段，高级 JSON 用于额外数据。图片可上传 PNG / JPEG / WebP，或记录官方素材链接；视频使用原始链接和时间码，不在此抓取整个视频。
+
+“Steam资料补充”按 AppID 获取单款游戏详情、当前价格和同口径评价摘要。自动读取后仍需点“已阅读原始来源并核验”。
+
+### D. 生成待审稿：两条路径任选其一
+
+**不额外接模型 API：**点击“复制网页AI资料包”或“导出研究包”，粘贴给你使用的网页AI；让它按返回格式输出 JSON，再点“导入AI初稿”。初稿导入不会自动审核通过。
+
+**本机 Codex：**在设置中选择“本机Codex CLI”。需你事先在独立终端安装并认证 Codex。材料齐备后点“生成待审稿”。未安装、未认证、额度不足或输出校验失败时，只返回资料大纲，不冒充完成稿。
+
+系统不自动登录或操作第三方网页AI，不自动切换到付费服务。Codex是可选外部程序，并非压缩包自带模型。
+
+### E. 审核、排期、手动发布
+
+编辑区旁边可核对事实和素材。保存新版本后勾选四项人工检查，再点“人工审核通过”。修改正文、数字或来源会撤销旧审核；当前版本需要重新检查。
+
+通过后可排期，并复制已审核文本。排期只是计划，**不会自动发送到小黑盒**。你手动发布后，把帖子分享链接贴回“排期与发布”，记录采用的稿件版本和实际时间。
+
+发布前会再次检查价格时效；默认30分钟核对窗口可配置，它不是平台规定。
+
+### F. 记录表现
+
+在发布后24小时、72小时、7天录入能看到的数据；实际记录时间会保留，错过目标窗口会提示。拿不到浏览量、关注归因就留空，系统不会把未知写成0，也不会用缺失浏览量计算互动率。
+
+## 4. 网页主要能力
+
+| 区域 | 已实现能力 |
+|---|---|
+| 今日工作台 | 时效和常青候选、最多两条合格推荐、来源状态、预算与栏目配比 |
+| 选题库 | 栏目/状态/池筛选、搜索、12条待研究角度、手工研究包导入 |
+| 题材与资料 | 游戏/制作人/工作室/发行商分开登记，简报可关联多个题材 |
+| 研究资料 | 已读来源、原文定位、事实/推论分离、价格/评分/引语/职务/细节字段、素材 |
+| 编辑与审核 | 版本化稿件、标题候选、Markdown预览、引用回查、未保存缓存、人工审核 |
+| 排期与发布 | 计划时间、手动发布链接、历史采用版本、操作记录 |
+| 数据复盘 | 可获得指标、实际帖子年龄、空值与窗口提醒、人工时间 |
+| 设置与来源 | 本地预算、来源开关、关注AppID、模型方式、平台规则检查记录 |
+| 旧版归档 | 旧报告和编辑稿只读下载，迁移清单及SHA-256校验备份 |
+
+编辑优先级是对信息完整度、受众、贡献和预算的**透明规则排序**，不是大模型预测爆款概率，也不是独立验证选题好坏。
+
+## 5. 数据源与真实边界
+
+默认启用 Steam 商店、Steam 新闻、Epic；Steam 新闻只追踪你在设置中填入的 AppID，未配置时显示未配置。Reddit RSS、自定义RSS、小黑盒静态公开页可选。
+
+Steam首页候选集不是全Steam数据库；新模块支持按选定AppID补充详情与评价。Steam评论查询摘要保留筛选参数，有限正/负面片段不能当总体样本。没有稳定的小黑盒评分库、史低库，也没有全网自动研究/采访查证系统。
+
+**经典、细节和人物材料主要通过手工摘要、链接、截图或研究包导入。** 软件负责组织、检查结构和辅助写稿，不宣称自动玩游戏、辨认所有虚假信息或获得所有来源访问权限。
+
+详情见 [功能状态](docs/FEATURE_STATUS.md)、[验收报告](QUALITY_REPORT.md)。
+
+## 6. 存储、隐私与旧版迁移
+
+```text
+data/editorial/
+  live/briefs/             真实简报、来源、主张、素材引用、稿件历史、发布与指标
+  example/briefs/          独立示例资料库
+  live/uploads/           用户上传的图片（示例目录独立）
+  live/subjects/          题材记录
+  settings.json           网页设置（真实/示例共享设置，不共享稿件）
+  policy-review.json      人工规则检查
+reports/{live,example,offline}/{run_id}/
+legacy/manifest.json       旧项目备份目录索引
+.heybox-runtime/           实例、任务与PID记录
+logs/web.log              服务日志
+```
+
+每条简报及其资料是一个原子JSON聚合，稿件版本追加保留。多标签页使用版本冲突检测，不静默覆盖新数据。上传图片会保留原文件，**未去除EXIF**；发布前自行检查个人信息。
+
+不同运行模式使用独立报告与latest指针。浏览器未保存缓存不是磁盘保存，页面会区分提示；建议经常点击“保存新版本”。
+
+旧版用户先读 **[APPLY.md](APPLY.md)**。迁移默认只预览，显式 `--copy` 才复制并校验；不删除旧文件，不把旧稿变成已审核新稿。
+
+## 7. 开发与测试
+
+```bash
+python -m pip install -e '.[dev]'
+pytest
+
+# 可选：原生浏览器测试；使用临时工作区，不动你的稿件
+python -m pip install -e '.[browser]'
+python -m playwright install chromium
+python scripts/browser-smoke.py
+```
+
+浏览器安装可能需网络。受管浏览器限制本地导航时，可用 `--bridge` 做明确标记的渲染/API测试；它不能代替原生HTTP、浏览器存储与Mac Finder验收。此次实际验收范围见 [QUALITY_REPORT.md](QUALITY_REPORT.md)。
+
+## 8. 常见问题
+
+**启动后服务断开？** 用启动器重新启动，不要直接双击 `index.html`。同一服务重启后页面会自动重连；未保存正文留在该浏览器缓存中。报端口占用时先停旧版，不要随意按端口杀进程。
+
+**点更新没有合格推荐？** 查看来源状态与待补证事项。采集不是核验。来源失败不等于零需求，最高分也不会自动顶替不合格内容。
+
+**为什么默认不直接生成两篇？** 来源摘要不足以完成可信帖子。系统先建立研究资料，再由你选择角度，避免把标题重写当成原创内容。
+
+**能直接部署公网吗？** 本版仅限本人本地工作区。没有账号、访问控制、多人队列或云部署验收，不要直接监听公网或反向代理暴露服务。
