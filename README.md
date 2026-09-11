@@ -2,60 +2,105 @@
 
 **Game Demand Radar + Xiaoheihe Content Engine + Preliminary SEO Opportunity Radar**
 
-V1.2 is a CLI-first, evidence-first pipeline for game-site operators. It collects public game signals, ranks what is worth posting on Xiaoheihe, generates Chinese drafts, and separately surfaces website/SEO opportunities that still need Semrush/SERP validation.
+V1.3 adds a local browser dashboard on top of the evidence-first radar pipeline. The web UI is now the recommended daily interface; the CLI remains available for automation and debugging.
 
-## Why V1.2
+The core workflow stays the same:
 
-This implementation was revised after sampling real public Xiaoheihe community posts. Two corrections matter most:
+```text
+public game signals
+→ normalize / cluster / aggregate
+→ Xiaoheihe Publish Score
+→ Reach Pick + Value Pick
+→ Chinese Draft + Media Plan
+→ preliminary SEO / game-site opportunity queue
+→ human review
+```
 
-1. Xiaoheihe-native reach content includes dense Steam deal/freebie roundups and data-driven game stories, not just generic news summaries.
-2. Xiaoheihe publish value and SEO/site value are different questions and therefore have different scores.
+## Recommended: Web dashboard
 
-See `docs/XIAOHEIHE_RESEARCH.md` and `DEVELOPMENT_SPEC.md`.
-
-## Install
+Install once:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\\Scripts\\activate
+source .venv/bin/activate
 pip install -e .
 ```
 
-Development:
+Then start the dashboard:
+
+```bash
+game-radar web --config config/codex.yaml
+```
+
+The browser opens automatically at:
+
+```text
+http://127.0.0.1:8787
+```
+
+The dashboard provides:
+
+- one-click **Live / Fixture / Offline** runs;
+- an explicit banner showing whether the report is real or synthetic fixture data;
+- Raw Items, Events + Roundups, A-tier, B-tier and Warning counts;
+- **Reach Pick** and **Value Pick** cards;
+- Top Candidates with independent XHH and preliminary Site scores;
+- best SEO / game-site validation candidate;
+- source counts and source/warning visibility;
+- Draft drawer with title candidates, body, comment hook and evidence;
+- copy-ready Xiaoheihe text;
+- editable drafts saved under `reports/YYYY-MM-DD/xhh/edited/`;
+- report history by date.
+
+### macOS: double-click launcher
+
+After cloning the repository, you can double-click:
+
+```text
+scripts/start-web.command
+```
+
+It creates `.venv` and installs the project automatically on first launch, then opens the dashboard. If macOS blocks execution the first time, run `chmod +x scripts/start-web.command` once.
+
+## Important: Fixture is not live data
+
+The included fixture exists only to verify the pipeline and UI deterministically. A report containing a warning such as:
+
+```text
+Fixture mode: loaded ... synthetic/offline items ...
+```
+
+must not be used for actual Xiaoheihe topic selection. The dashboard highlights Fixture reports prominently to prevent this mistake.
+
+## Live run
+
+From the web UI choose:
+
+```text
+Mode: Live · 真实网络
+Config: config/codex.yaml
+```
+
+and click **运行今日雷达**.
+
+You can still run the same pipeline from the CLI:
+
+```bash
+game-radar daily --config config/codex.yaml
+```
+
+A single source failure does not stop the pipeline. Failures appear in the dashboard Warnings panel and in `daily-radar.md`.
+
+## Development
 
 ```bash
 pip install -e '.[dev]'
 pytest
 ```
 
-## First run: offline demo
-
-The repository includes a deterministic fixture so you can inspect output before touching live sources:
-
-```bash
-game-radar daily \
-  --config config/default.yaml \
-  --fixture tests/fixtures/sample-items.json \
-  --date 2026-09-11
-```
-
-Then open:
-
-```text
-reports/2026-09-11/daily-radar.md
-```
-
-## Live run
-
-```bash
-game-radar daily --config config/default.yaml
-```
-
-A single source failure does not stop the pipeline. Warnings are included in `daily-radar.md`.
-
 ## Configure watched Steam games
 
-Edit `config/default.yaml`:
+Edit `config/default.yaml` or `config/codex.yaml`:
 
 ```yaml
 collection:
@@ -72,23 +117,15 @@ Steam News and current-player collection use Steam Web API routes. The Steam sto
 
 ## SteamDB design decision
 
-SteamDB is useful, but V1.2 does not rely on it as a hard data dependency. The default implementation computes player-growth signals from Steam current-player snapshots stored in local SQLite. Optional SteamDB public-HTML enrichment exists, but is disabled by default.
+SteamDB is useful, but the radar does not rely on it as a hard data dependency. The default implementation computes player-growth signals from Steam current-player snapshots stored in local SQLite. Optional SteamDB public-HTML enrichment exists, but is disabled by default.
 
 ## Historical-low guard
 
-Current Steam sale data does **not** prove an all-time historical low. V1.2 will not generate “史低/新史低” titles unless `historical_low_verified` evidence is present.
-
-This is intentional: a high-CTR title is not useful if the factual claim is wrong.
+Current Steam sale data does **not** prove an all-time historical low. The system will not generate “史低/新史低” titles unless `historical_low_verified` evidence is present.
 
 ## Preliminary SEO/site score
 
-The site score is a discovery score, not a build decision. It does not have Semrush volume/KD or full Google SERP strength, so every candidate remains:
-
-```text
-needs_serp_validation = true
-```
-
-The next workflow should be:
+The site score is a discovery score, not a build decision. It does not contain Semrush volume/KD or full Google SERP competitor strength, so every candidate remains a validation queue item.
 
 ```text
 Radar signal
@@ -108,44 +145,17 @@ sources:
 
 It uses public web pages only. No authenticated/private API, cookies, or automatic posting are implemented. If the public layout changes, the source emits a warning and the rest of the run continues.
 
-## Codex mode (recommended for your actual daily drafts)
+## Codex mode
 
-The repository includes `config/codex.yaml`. After the folder is a Git repository and Codex CLI is installed/authenticated, run:
+`config/codex.yaml` uses Codex CLI after Python has already completed collection, scoring and evidence checks. Codex only edits the selected evidence bundle into Chinese copy. If Codex fails, the deterministic writer is used.
 
-```bash
-game-radar daily --config config/codex.yaml
-```
+## What V1.3 deliberately does not do
 
-The pipeline still performs collection, scoring and evidence checks in Python. Codex is used only for Chinese copy editing of the already-selected evidence bundle. It runs via non-interactive `codex exec` with a JSON output schema; if the Codex call fails, the deterministic draft is used instead.
-
-## Optional local/CLI LLM
-
-Default mode is deterministic and requires no AI API:
-
-```yaml
-llm:
-  mode: heuristic
-```
-
-For a local/CLI LLM, set:
-
-```yaml
-llm:
-  mode: command
-  command: "your-command-here"
-```
-
-The command receives a JSON evidence envelope on stdin and must return JSON containing `selected_title`, `title_candidates`, `body_markdown`, `comment_hook`, and optionally `media_plan`.
-
-If it fails or returns a title that violates the evidence guard, the deterministic writer is used.
-
-## What V1.2 deliberately does not do
-
-- automatic Xiaoheihe posting
-- automatic login/cookie management
-- auto-like/comment
-- Web dashboard
-- SaaS/user system
-- AI-generated images
+- automatic Xiaoheihe posting;
+- automatic login/cookie management;
+- auto-like/comment;
+- public multi-user SaaS hosting;
+- account/user system;
+- AI-generated images.
 
 Human review remains the publishing gate.

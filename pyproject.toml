@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "game-content-radar"
-version = "0.1.0"
+version = "0.2.0"
 description = "Game demand radar + Xiaoheihe content engine + preliminary SEO opportunity radar"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -12,6 +12,8 @@ dependencies = [
   "requests>=2.31,<3",
   "PyYAML>=6,<7",
   "beautifulsoup4>=4.12,<5",
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.30,<1",
 ]
 
 [project.optional-dependencies]
@@ -22,6 +24,9 @@ game-radar = "game_content_radar.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+game_content_radar = ["web_ui/*.html"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
