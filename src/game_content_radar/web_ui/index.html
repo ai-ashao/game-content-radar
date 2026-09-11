@@ -7,225 +7,296 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0a0d12;
-      --panel: #11161f;
-      --panel-2: #151c27;
-      --border: #263041;
-      --text: #edf3ff;
-      --muted: #91a0b7;
-      --soft: #c8d3e5;
-      --accent: #7c9cff;
-      --accent-2: #4bd7b5;
-      --warn: #f3b44e;
-      --danger: #ff6b7a;
+      --bg: #080b12;
+      --bg-2: #0b1019;
+      --panel: rgba(16, 22, 32, .92);
+      --panel-2: #141b27;
+      --panel-3: #0d131d;
+      --border: #263246;
+      --border-soft: #202a3a;
+      --text: #f3f6fc;
+      --soft: #cbd5e6;
+      --muted: #8796ad;
+      --accent: #8ba3ff;
+      --accent-2: #59d9ba;
       --good: #62d394;
-      --shadow: 0 16px 46px rgba(0,0,0,.28);
+      --busy: #f0bb63;
+      --danger: #ff6f7d;
+      --warn: #f2bc68;
+      --shadow: 0 22px 64px rgba(0,0,0,.26);
     }
     * { box-sizing: border-box; }
+    html { background: var(--bg); }
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at 12% -10%, rgba(124,156,255,.16), transparent 32%),
-        radial-gradient(circle at 85% 0%, rgba(75,215,181,.08), transparent 28%),
-        var(--bg);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% -8%, rgba(139,163,255,.13), transparent 31%),
+        radial-gradient(circle at 92% 2%, rgba(89,217,186,.08), transparent 25%),
+        linear-gradient(180deg, #090c13 0%, #080b12 45%, #070a10 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     button, select, input, textarea { font: inherit; }
     button { cursor: pointer; }
-    a { color: #a8bbff; text-decoration: none; }
+    a { color: #aebeff; text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .shell { max-width: 1500px; margin: 0 auto; padding: 24px; }
-    .topbar {
-      display: flex; justify-content: space-between; gap: 20px; align-items: flex-start;
-      padding: 8px 0 22px;
+    .shell { max-width: 1480px; margin: 0 auto; padding: 24px 28px 56px; }
+    .topbar { display: flex; justify-content: space-between; gap: 24px; align-items: center; padding: 2px 0 22px; }
+    .brand { display: flex; align-items: center; gap: 13px; }
+    .brand-mark {
+      width: 42px; height: 42px; border-radius: 13px; position: relative; flex: 0 0 auto;
+      border: 1px solid #32425c; background: linear-gradient(145deg, #172235, #0e151f);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 10px 28px rgba(0,0,0,.2);
     }
-    .brand h1 { margin: 0 0 6px; font-size: 26px; letter-spacing: -.02em; }
-    .brand p { margin: 0; color: var(--muted); font-size: 14px; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--border);
-      background: rgba(17,22,31,.8); padding: 7px 10px; border-radius: 999px;
-      color: var(--soft); font-size: 12px; white-space: nowrap;
+    .brand-mark::before, .brand-mark::after { content: ""; position: absolute; border-radius: 50%; border: 1px solid rgba(139,163,255,.65); }
+    .brand-mark::before { inset: 9px; }
+    .brand-mark::after { inset: 15px; border-color: rgba(89,217,186,.82); background: rgba(89,217,186,.13); }
+    .brand-copy h1 { margin: 0; font-size: 24px; letter-spacing: -.025em; }
+    .brand-copy p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+    .server-pill {
+      display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border);
+      background: rgba(16,22,32,.82); padding: 8px 11px; border-radius: 999px; color: var(--soft); font-size: 12px;
     }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); box-shadow: 0 0 0 4px rgba(98,211,148,.08); }
-    .controlbar {
-      display: grid; grid-template-columns: 1.2fr 1fr 1fr auto auto; gap: 10px;
-      background: rgba(17,22,31,.86); border: 1px solid var(--border); border-radius: 16px;
-      padding: 14px; box-shadow: var(--shadow); position: sticky; top: 12px; z-index: 8;
-      backdrop-filter: blur(14px);
+    .server-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); box-shadow: 0 0 0 4px rgba(135,150,173,.08); }
+    .server-pill.ready .server-dot { background: var(--good); box-shadow: 0 0 0 4px rgba(98,211,148,.09); }
+    .server-pill.busy .server-dot { background: var(--busy); box-shadow: 0 0 0 4px rgba(240,187,99,.09); }
+    .server-pill.down { border-color: rgba(255,111,125,.35); color: #ffb3bb; }
+    .server-pill.down .server-dot { background: var(--danger); box-shadow: 0 0 0 4px rgba(255,111,125,.09); }
+
+    .connection-banner {
+      display: none; margin-bottom: 16px; border: 1px solid rgba(255,111,125,.35); background: rgba(255,111,125,.07);
+      color: #ffc0c7; border-radius: 14px; padding: 12px 14px; font-size: 13px; line-height: 1.55;
+      align-items: center; justify-content: space-between; gap: 16px;
     }
-    .field { display: flex; flex-direction: column; gap: 6px; }
-    .field label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
-    select, input[type="date"] {
-      width: 100%; color: var(--text); background: #0d121a; border: 1px solid var(--border);
-      border-radius: 10px; padding: 10px 11px; outline: none;
+    .connection-banner.on { display: flex; }
+
+    .run-card {
+      border: 1px solid var(--border); border-radius: 20px; background: linear-gradient(145deg, rgba(18,25,36,.95), rgba(12,17,25,.95));
+      box-shadow: var(--shadow); overflow: hidden;
     }
-    select:focus, input:focus, textarea:focus { border-color: #536ba8; box-shadow: 0 0 0 3px rgba(124,156,255,.1); }
+    .run-main { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; padding: 20px 22px; }
+    .eyebrow { color: #a9b8cf; font-size: 11px; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 6px; }
+    .run-copy h2 { margin: 0 0 7px; font-size: 21px; letter-spacing: -.015em; }
+    .run-copy p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .run-actions { display: flex; gap: 10px; align-items: center; }
     .primary, .secondary, .ghost {
-      border-radius: 10px; padding: 10px 14px; border: 1px solid transparent; font-weight: 700;
-      min-height: 40px;
+      border-radius: 11px; min-height: 42px; padding: 10px 15px; border: 1px solid transparent; font-weight: 750;
     }
-    .primary { color: #081018; background: linear-gradient(135deg, #91a9ff, #66dbc0); }
-    .primary:disabled { opacity: .45; cursor: not-allowed; }
-    .secondary { background: #1a2230; border-color: #31405a; color: var(--text); }
+    .primary { color: #071016; background: linear-gradient(135deg, #98adff, #67dec1); box-shadow: 0 8px 24px rgba(89,217,186,.11); }
+    .primary:hover { filter: brightness(1.05); }
+    .primary:disabled { opacity: .45; cursor: not-allowed; filter: none; }
+    .secondary { background: #182131; border-color: #30405b; color: var(--text); }
     .ghost { background: transparent; border-color: var(--border); color: var(--soft); }
-    .toolbar-button { align-self: end; }
-    .statusline { margin-top: 10px; min-height: 24px; color: var(--muted); font-size: 13px; display: flex; align-items: center; gap: 9px; }
-    .spinner { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #3a4558; border-top-color: var(--accent); animation: spin .8s linear infinite; display: none; }
+    .tiny { min-height: 34px; padding: 7px 10px; font-size: 12px; border-radius: 9px; }
+    .icon-button { width: 42px; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 17px; }
+    .run-status { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 12px; margin-top: 10px; min-height: 20px; }
+    .spinner { width: 13px; height: 13px; border-radius: 50%; border: 2px solid #3d4859; border-top-color: var(--accent); display: none; animation: spin .8s linear infinite; }
     .spinner.on { display: inline-block; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .mode-banner {
-      margin-top: 18px; border-radius: 14px; padding: 12px 14px; border: 1px solid var(--border);
-      display: none; font-size: 13px;
+    details.advanced { border-top: 1px solid var(--border-soft); }
+    details.advanced summary { list-style: none; cursor: pointer; color: var(--muted); font-size: 12px; padding: 12px 22px; user-select: none; }
+    details.advanced summary::-webkit-details-marker { display: none; }
+    details.advanced summary::after { content: "＋"; float: right; color: #7f8da2; }
+    details.advanced[open] summary::after { content: "－"; }
+    .advanced-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 12px; padding: 0 22px 18px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { color: var(--muted); font-size: 11px; }
+    select, input[type="date"] {
+      width: 100%; color: var(--text); background: #0d131d; border: 1px solid var(--border); border-radius: 10px; padding: 10px 11px; outline: none;
     }
-    .mode-banner.fixture { display: block; border-color: #795d2c; background: rgba(243,180,78,.09); color: #f9d69a; }
-    .mode-banner.offline { display: block; border-color: #5b5366; background: rgba(145,160,183,.08); color: #cad3e0; }
-    .mode-banner.live { display: block; border-color: #285c4e; background: rgba(75,215,181,.07); color: #a7ecd9; }
-    .stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
-    .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
-    .stat .k { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
-    .stat .v { font-size: 27px; font-weight: 800; letter-spacing: -.03em; }
-    .layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(320px, .75fr); gap: 16px; margin-top: 16px; }
-    .stack { display: flex; flex-direction: column; gap: 16px; }
-    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
-    .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 16px; border-bottom: 1px solid var(--border); }
-    .panel-head h2 { margin: 0; font-size: 15px; }
-    .panel-head .sub { color: var(--muted); font-size: 12px; }
-    .panel-body { padding: 16px; }
-    .picks { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .pick-card { border: 1px solid var(--border); background: linear-gradient(145deg, rgba(21,28,39,.96), rgba(14,19,27,.96)); border-radius: 15px; padding: 16px; min-height: 250px; }
-    .pick-kicker { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-    .score { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 12px; background: #0b1119; border: 1px solid #324057; font-weight: 800; color: #b8c6ff; }
-    .pick-card h3 { margin: 13px 0 6px; font-size: 18px; line-height: 1.4; }
-    .meta { color: var(--muted); font-size: 12px; display: flex; flex-wrap: wrap; gap: 6px 10px; }
-    .reason-list { margin: 14px 0; padding-left: 18px; color: var(--soft); font-size: 13px; line-height: 1.65; }
-    .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .tiny { padding: 8px 10px; min-height: auto; font-size: 12px; border-radius: 9px; }
-    .tag { display: inline-flex; border: 1px solid #334056; background: #121923; color: #aebad0; border-radius: 999px; padding: 3px 8px; font-size: 11px; }
+    select:focus, input:focus, textarea:focus { border-color: #536da9; box-shadow: 0 0 0 3px rgba(139,163,255,.09); }
+
+    .mode-banner { display: none; margin-top: 14px; border-radius: 13px; padding: 11px 13px; border: 1px solid var(--border); font-size: 12px; line-height: 1.55; }
+    .mode-banner.fixture { display: block; border-color: #70572b; background: rgba(242,188,104,.08); color: #f6d6a2; }
+    .mode-banner.offline { display: block; color: #c2cbd8; background: rgba(135,150,173,.07); }
+    .mode-banner.live.warning { display: block; border-color: #6d572d; background: rgba(242,188,104,.07); color: #f5d39a; }
+
+    .stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 11px; margin-top: 15px; }
+    .stat { border: 1px solid var(--border-soft); background: rgba(15,21,31,.83); border-radius: 14px; padding: 14px 15px; }
+    .stat .k { color: var(--muted); font-size: 11px; margin-bottom: 7px; }
+    .stat .v { font-size: 25px; font-weight: 820; letter-spacing: -.03em; }
+    .stat .hint { margin-top: 3px; color: #637087; font-size: 10px; }
+
+    .layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(330px, .72fr); gap: 15px; margin-top: 15px; }
+    .stack { display: flex; flex-direction: column; gap: 15px; }
+    .panel { background: var(--panel); border: 1px solid var(--border-soft); border-radius: 17px; overflow: hidden; }
+    .panel-head { display: flex; justify-content: space-between; gap: 14px; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border-soft); }
+    .panel-title h2 { margin: 0; font-size: 14px; }
+    .panel-title .sub { margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .panel-body { padding: 15px 16px; }
+    .tag { display: inline-flex; align-items: center; border: 1px solid #334157; background: #121923; color: #afbbce; border-radius: 999px; padding: 3px 8px; font-size: 10px; }
+
+    .picks { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .pick-card { border: 1px solid #28354a; background: linear-gradient(145deg, rgba(21,29,42,.92), rgba(13,18,27,.94)); border-radius: 15px; padding: 15px; min-height: 235px; }
+    .pick-card.reach { box-shadow: inset 0 1px 0 rgba(139,163,255,.05); }
+    .pick-card.value { box-shadow: inset 0 1px 0 rgba(89,217,186,.05); }
+    .pick-kicker { display: flex; justify-content: space-between; gap: 10px; align-items: center; color: var(--muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+    .pick-card h3 { margin: 12px 0 7px; font-size: 17px; line-height: 1.45; }
+    .score { width: 39px; height: 39px; border-radius: 11px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #34435d; background: #0b1119; font-weight: 820; color: #bec9ff; }
+    .meta { color: var(--muted); font-size: 11px; display: flex; flex-wrap: wrap; gap: 5px 10px; }
+    .reason-list { margin: 12px 0 0; padding-left: 17px; color: var(--soft); font-size: 12px; line-height: 1.58; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 13px; }
+    .source-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 9px; }
+
+    .seo-card h3 { margin: 0 0 8px; font-size: 15px; line-height: 1.45; }
+    .seo-score { float: right; margin-left: 12px; }
+    .seo-note { color: var(--soft); font-size: 12px; line-height: 1.6; margin: 12px 0; }
+    .source-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
+    .source-item { border: 1px solid var(--border); border-radius: 10px; padding: 7px 9px; font-size: 11px; color: var(--soft); background: var(--panel-2); }
+    .warning-list { margin: 0; padding-left: 17px; color: #efc982; font-size: 12px; line-height: 1.65; }
+    .empty { color: var(--muted); font-size: 12px; padding: 12px 0; }
+    .empty-hero { text-align: center; padding: 34px 16px; }
+    .empty-hero strong { display: block; color: var(--soft); margin-bottom: 5px; font-size: 14px; }
+    .history { display: flex; flex-direction: column; gap: 6px; max-height: 230px; overflow: auto; }
+    .history button { text-align: left; background: #0e141d; color: var(--soft); border: 1px solid var(--border); padding: 8px 9px; border-radius: 9px; font-size: 11px; }
+    .history button:hover, .history button.active { border-color: #536ba8; background: #141c29; }
+
     .table-wrap { overflow: auto; }
-    table { width: 100%; border-collapse: collapse; min-width: 760px; }
-    th { text-align: left; color: var(--muted); font-size: 11px; font-weight: 600; padding: 11px 12px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: .07em; }
-    td { padding: 12px; border-bottom: 1px solid #202a39; font-size: 13px; vertical-align: top; }
-    tr:last-child td { border-bottom: 0; }
-    tbody tr:hover { background: rgba(124,156,255,.035); }
+    table { width: 100%; border-collapse: collapse; min-width: 780px; }
+    th { text-align: left; color: var(--muted); font-size: 10px; font-weight: 650; padding: 10px 11px; border-bottom: 1px solid var(--border-soft); letter-spacing: .06em; }
+    td { padding: 11px; border-bottom: 1px solid #202a38; font-size: 12px; vertical-align: top; }
+    tbody tr:hover { background: rgba(139,163,255,.035); }
+    tbody tr:last-child td { border-bottom: 0; }
     .rank { color: var(--muted); width: 34px; }
     .score-cell { font-weight: 800; font-variant-numeric: tabular-nums; }
-    .site-high { color: #78dfaa; }
-    .seo-card h3 { margin: 0 0 8px; line-height: 1.4; }
-    .source-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
-    .source-item { border: 1px solid var(--border); border-radius: 10px; padding: 7px 9px; font-size: 12px; color: var(--soft); background: var(--panel-2); }
-    .warning-list { margin: 0; padding-left: 18px; color: #f1c77f; font-size: 13px; line-height: 1.7; }
-    .empty { color: var(--muted); font-size: 13px; padding: 14px 0; }
-    .history { display: flex; flex-direction: column; gap: 7px; max-height: 270px; overflow: auto; }
-    .history button { text-align: left; background: #0e141d; color: var(--soft); border: 1px solid var(--border); padding: 9px 10px; border-radius: 9px; }
-    .history button:hover, .history button.active { border-color: #536ba8; background: #141c29; }
-    pre.markdown { white-space: pre-wrap; word-break: break-word; background: #0c1118; border: 1px solid var(--border); border-radius: 12px; padding: 13px; max-height: 420px; overflow: auto; color: #cfd8e7; font-size: 12px; line-height: 1.65; }
-    .drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.62); z-index: 30; display: none; }
+    .site-high { color: #7be0ad; }
+    .source-link { font-size: 11px; }
+    pre.markdown { margin: 0; white-space: pre-wrap; word-break: break-word; background: #0b1017; border: 1px solid var(--border-soft); border-radius: 12px; padding: 13px; max-height: 360px; overflow: auto; color: #ccd6e6; font-size: 11px; line-height: 1.65; }
+
+    .drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 30; display: none; }
     .drawer-backdrop.on { display: block; }
-    .drawer { position: fixed; top: 0; right: 0; height: 100vh; width: min(720px, 94vw); background: #0d121a; border-left: 1px solid var(--border); z-index: 31; transform: translateX(100%); transition: transform .2s ease; display: flex; flex-direction: column; box-shadow: -18px 0 70px rgba(0,0,0,.4); }
+    .drawer { position: fixed; top: 0; right: 0; height: 100vh; width: min(760px, 95vw); background: #0d121a; border-left: 1px solid var(--border); z-index: 31; transform: translateX(100%); transition: transform .2s ease; display: flex; flex-direction: column; box-shadow: -24px 0 80px rgba(0,0,0,.42); }
     .drawer.on { transform: translateX(0); }
-    .drawer-head { padding: 16px 18px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 12px; align-items: center; }
-    .drawer-head h2 { font-size: 16px; margin: 0; }
-    .drawer-body { padding: 16px 18px 40px; overflow: auto; flex: 1; }
-    .drawer label { display: block; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; margin: 16px 0 7px; }
-    .drawer input[type="text"], .drawer textarea { width: 100%; background: #0a0f16; color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 11px 12px; outline: none; }
-    .drawer textarea { min-height: 320px; resize: vertical; line-height: 1.65; }
-    .title-options { display: flex; flex-direction: column; gap: 7px; }
-    .title-option { width: 100%; text-align: left; background: #111821; border: 1px solid var(--border); color: var(--soft); border-radius: 10px; padding: 9px 10px; font-size: 12px; line-height: 1.5; }
+    .drawer-head { padding: 15px 18px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+    .drawer-head h2 { font-size: 15px; margin: 0; }
+    .drawer-body { padding: 15px 18px 40px; overflow: auto; flex: 1; }
+    .drawer label { display: block; color: var(--muted); font-size: 10px; letter-spacing: .07em; margin: 15px 0 6px; }
+    .drawer input[type="text"], .drawer textarea { width: 100%; background: #0a0f16; color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 10px 11px; outline: none; }
+    .drawer textarea { min-height: 330px; resize: vertical; line-height: 1.65; }
+    .title-options { display: flex; flex-direction: column; gap: 6px; }
+    .title-option { width: 100%; text-align: left; background: #111821; border: 1px solid var(--border); color: var(--soft); border-radius: 10px; padding: 8px 9px; font-size: 11px; line-height: 1.5; }
     .title-option:hover { border-color: #536ba8; }
-    .evidence { font-size: 12px; color: var(--muted); line-height: 1.6; }
-    .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(20px); background: #182232; border: 1px solid #3a4b66; color: var(--text); padding: 10px 14px; border-radius: 10px; opacity: 0; pointer-events: none; transition: .18s ease; z-index: 50; box-shadow: var(--shadow); }
+    .evidence { font-size: 11px; color: var(--muted); line-height: 1.6; }
+    .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(20px); background: #182232; border: 1px solid #3a4b66; color: var(--text); padding: 10px 14px; border-radius: 10px; opacity: 0; pointer-events: none; transition: .18s ease; z-index: 50; box-shadow: var(--shadow); font-size: 12px; }
     .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
-    @media (max-width: 1000px) {
-      .controlbar { grid-template-columns: 1fr 1fr; position: static; }
-      .toolbar-button { align-self: auto; }
-      .stats { grid-template-columns: repeat(3, 1fr); }
+
+    @media (max-width: 1050px) {
+      .stats { grid-template-columns: repeat(3, minmax(0,1fr)); }
       .layout { grid-template-columns: 1fr; }
+      .advanced-grid { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 700px) {
-      .shell { padding: 15px; }
-      .topbar { flex-direction: column; }
-      .controlbar { grid-template-columns: 1fr; }
+    @media (max-width: 720px) {
+      .shell { padding: 16px; }
+      .topbar { align-items: flex-start; }
+      .brand-copy p { display: none; }
+      .run-main { grid-template-columns: 1fr; gap: 14px; }
+      .run-actions { width: 100%; }
+      .run-actions .primary { flex: 1; }
+      .advanced-grid { grid-template-columns: 1fr; }
       .stats { grid-template-columns: 1fr 1fr; }
       .picks { grid-template-columns: 1fr; }
+      .connection-banner { align-items: flex-start; flex-direction: column; }
     }
   </style>
 </head>
 <body>
   <div class="shell">
-    <div class="topbar">
+    <header class="topbar">
       <div class="brand">
-        <h1>Game Content Radar</h1>
-        <p>游戏情报 → 小黑盒选题 → Draft → SEO / 建站机会</p>
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <h1>Game Content Radar</h1>
+          <p>游戏情报 → 小黑盒选题 → Draft → SEO / 建站机会</p>
+        </div>
       </div>
-      <div class="pill"><span class="dot"></span><span id="serverState">本地服务已连接</span></div>
+      <div class="server-pill" id="serverPill"><span class="server-dot"></span><span id="serverState">检测服务中…</span></div>
+    </header>
+
+    <div class="connection-banner" id="connectionBanner">
+      <div><strong>本地服务已断开。</strong> 网页仍在浏览器缓存里，但后端已经停止。请双击 <code>scripts/start-web.command</code> 重新启动。</div>
+      <button class="ghost tiny" id="retryConnection">重新连接</button>
     </div>
 
-    <div class="controlbar">
-      <div class="field">
-        <label>配置</label>
-        <select id="configSelect"></select>
+    <section class="run-card">
+      <div class="run-main">
+        <div class="run-copy">
+          <div class="eyebrow">今日雷达</div>
+          <h2>获取今天最值得发的小黑盒选题</h2>
+          <p>默认使用实时网络数据。系统会抓取、聚类、评分，并输出覆盖型推荐、深度型推荐与 SEO / 建站候选。</p>
+          <div class="run-status"><span class="spinner" id="spinner"></span><span id="statusText">正在检查本地服务…</span></div>
+        </div>
+        <div class="run-actions">
+          <button class="primary" id="runButton">运行今日雷达</button>
+          <button class="secondary icon-button" id="refreshButton" title="刷新结果" aria-label="刷新结果">↻</button>
+        </div>
       </div>
-      <div class="field">
-        <label>运行模式</label>
-        <select id="modeSelect">
-          <option value="live">Live · 真实网络</option>
-          <option value="fixture">Fixture · 测试数据</option>
-          <option value="offline">Offline · 不联网</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>日期（可选）</label>
-        <input id="dateInput" type="date" />
-      </div>
-      <button class="primary toolbar-button" id="runButton">运行今日雷达</button>
-      <button class="secondary toolbar-button" id="refreshButton">刷新结果</button>
-    </div>
-    <div class="statusline"><span class="spinner" id="spinner"></span><span id="statusText">正在读取报告…</span></div>
+      <details class="advanced" id="advancedOptions">
+        <summary>高级选项 · 默认无需修改</summary>
+        <div class="advanced-grid">
+          <div class="field">
+            <label>配置</label>
+            <select id="configSelect"></select>
+          </div>
+          <div class="field">
+            <label>数据模式</label>
+            <select id="modeSelect">
+              <option value="live">实时数据（正式使用）</option>
+              <option value="fixture">示例数据（开发测试）</option>
+              <option value="offline">无网络测试</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>报告日期（通常留空）</label>
+            <input id="dateInput" type="date" />
+          </div>
+        </div>
+      </details>
+    </section>
+
     <div id="modeBanner" class="mode-banner"></div>
 
-    <div class="stats" id="stats"></div>
+    <section class="stats" id="stats"></section>
 
     <div class="layout">
       <main class="stack">
         <section class="panel">
           <div class="panel-head">
-            <div><h2>今日推荐</h2><div class="sub">Reach 负责覆盖，Value 负责深度</div></div>
+            <div class="panel-title"><h2>今日推荐</h2><div class="sub">一个负责覆盖，一个负责深度；不强行凑够两篇</div></div>
             <span class="tag" id="reportDate">尚无报告</span>
           </div>
           <div class="panel-body"><div class="picks" id="picks"></div></div>
         </section>
 
         <section class="panel">
-          <div class="panel-head"><div><h2>Top Candidates</h2><div class="sub">XHH 发布分与 Site 预评分独立展示</div></div></div>
+          <div class="panel-head"><div class="panel-title"><h2>候选池</h2><div class="sub">小黑盒发布分与网站机会分独立展示</div></div></div>
           <div class="table-wrap" id="candidateTable"></div>
         </section>
 
         <section class="panel">
-          <div class="panel-head"><div><h2>SEO Opportunities</h2><div class="sub">仅为 PRE-SERP 候选，仍需 Semrush / SERP 验证</div></div></div>
+          <div class="panel-head"><div class="panel-title"><h2>SEO / 建站机会</h2><div class="sub">这里只是 PRE-SERP 队列，仍需 Semrush + SERP 验证</div></div></div>
           <div class="panel-body"><pre class="markdown" id="seoMarkdown">暂无数据</pre></div>
         </section>
       </main>
 
       <aside class="stack">
         <section class="panel">
-          <div class="panel-head"><div><h2>最佳 SEO / 建站候选</h2><div class="sub">不是小黑盒热度排行</div></div></div>
+          <div class="panel-head"><div class="panel-title"><h2>最佳网站机会</h2><div class="sub">不是小黑盒热度排行</div></div></div>
           <div class="panel-body" id="seoPick"></div>
         </section>
 
         <section class="panel">
-          <div class="panel-head"><div><h2>数据源</h2><div class="sub">本次报告实际收到的条目</div></div></div>
+          <div class="panel-head"><div class="panel-title"><h2>本次数据源</h2><div class="sub">实际收到多少条信号</div></div></div>
           <div class="panel-body"><div class="source-cloud" id="sourceCounts"></div></div>
         </section>
 
         <section class="panel">
-          <div class="panel-head"><div><h2>Warnings</h2><div class="sub">失败数据源与运行模式都会显示</div></div></div>
+          <div class="panel-head"><div class="panel-title"><h2>运行提醒</h2><div class="sub">失败数据源与重要告警</div></div></div>
           <div class="panel-body" id="warnings"></div>
         </section>
 
         <section class="panel">
-          <div class="panel-head"><div><h2>历史报告</h2><div class="sub">点击切换日期</div></div></div>
+          <div class="panel-head"><div class="panel-title"><h2>历史报告</h2><div class="sub">点击切换日期</div></div></div>
           <div class="panel-body"><div class="history" id="history"></div></div>
         </section>
       </aside>
@@ -258,26 +329,26 @@
   <div class="toast" id="toast"></div>
 
 <script>
-  const state = { meta: null, report: null, activeDate: null, activeDraftSlug: null, jobId: null };
+  const state = {
+    meta: null,
+    report: null,
+    activeDate: null,
+    activeDraftSlug: null,
+    jobId: null,
+    serverStatus: 'checking',
+  };
   const $ = (id) => document.getElementById(id);
 
   function esc(value) {
-    return String(value ?? "").replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    return String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   }
-
-  function jsArg(value) {
-    return encodeURIComponent(String(value ?? '')).replace(/'/g, '%27');
-  }
-
+  function jsArg(value) { return encodeURIComponent(String(value ?? '')).replace(/'/g, '%27'); }
   function safeUrl(value) {
     try {
       const url = new URL(String(value ?? ''));
       return ['http:', 'https:'].includes(url.protocol) ? url.href : '';
-    } catch {
-      return '';
-    }
+    } catch { return ''; }
   }
-
   function toast(message) {
     const el = $('toast');
     el.textContent = message;
@@ -286,12 +357,42 @@
     el._timer = setTimeout(() => el.classList.remove('on'), 1800);
   }
 
+  function setServerStatus(status, label = null) {
+    state.serverStatus = status;
+    const pill = $('serverPill');
+    pill.className = `server-pill ${status}`;
+    $('serverState').textContent = label || (status === 'ready' ? '服务正常' : status === 'busy' ? '雷达运行中' : status === 'down' ? '服务断开' : '检测服务中…');
+    $('connectionBanner').classList.toggle('on', status === 'down');
+    $('runButton').disabled = status === 'down' || status === 'busy';
+  }
+
+  async function checkHealth() {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 1800);
+      const res = await fetch('/api/health', { cache: 'no-store', signal: controller.signal });
+      clearTimeout(timer);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const health = await res.json();
+      setServerStatus(health.status === 'busy' ? 'busy' : 'ready');
+      return health;
+    } catch {
+      setServerStatus('down');
+      return null;
+    }
+  }
+
   async function api(path, options = {}) {
-    const res = await fetch(path, { headers: {'Content-Type': 'application/json'}, ...options });
-    let data = null;
-    try { data = await res.json(); } catch { data = {}; }
-    if (!res.ok) throw new Error(data.detail || `HTTP ${res.status}`);
-    return data;
+    try {
+      const res = await fetch(path, { headers: {'Content-Type': 'application/json'}, ...options });
+      let data = null;
+      try { data = await res.json(); } catch { data = {}; }
+      if (!res.ok) throw new Error(data.detail || `HTTP ${res.status}`);
+      return data;
+    } catch (err) {
+      if (err instanceof TypeError || /fetch|network|failed/i.test(String(err.message || err))) setServerStatus('down');
+      throw err;
+    }
   }
 
   function configQuery() {
@@ -327,9 +428,12 @@
     state.report = report;
     state.activeDate = date;
     renderReport(report);
-    const dates = [...document.querySelectorAll('#history button')];
-    dates.forEach(b => b.classList.toggle('active', b.dataset.date === date));
+    [...document.querySelectorAll('#history button')].forEach(b => b.classList.toggle('active', b.dataset.date === date));
     setStatus(`已加载 ${date} 报告`, false);
+  }
+
+  function statHtml(label, value, hint) {
+    return `<div class="stat"><div class="k">${esc(label)}</div><div class="v">${esc(value)}</div><div class="hint">${esc(hint)}</div></div>`;
   }
 
   function renderEmptyDashboard() {
@@ -337,29 +441,29 @@
     state.activeDate = null;
     $('reportDate').textContent = '尚无报告';
     $('stats').innerHTML = [
-      ['Raw Items', 0], ['Events', 0], ['A-tier', 0], ['B-tier', 0], ['Warnings', 0]
-    ].map(([k,v]) => `<div class="stat"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('');
-    $('picks').innerHTML = '<div class="empty">还没有报告。选择 Live 或 Fixture 后点击“运行今日雷达”。</div>';
+      ['原始信号', 0, '采集条目'], ['聚合事件', 0, '去重后'], ['A级', 0, '80+'], ['B级', 0, '65–79'], ['告警', 0, '数据源异常']
+    ].map(x => statHtml(...x)).join('');
+    $('picks').innerHTML = '<div class="empty-hero" style="grid-column:1/-1"><strong>还没有报告</strong><span class="empty">点击上方“运行今日雷达”，默认会使用真实网络数据。</span></div>';
     $('candidateTable').innerHTML = '<div class="empty" style="padding:16px">暂无候选。</div>';
     $('seoPick').innerHTML = '<div class="empty">暂无候选。</div>';
     $('sourceCounts').innerHTML = '<span class="empty">暂无数据</span>';
-    $('warnings').innerHTML = '<div class="empty">暂无 Warning</div>';
+    $('warnings').innerHTML = '<div class="empty">暂无提醒。</div>';
     $('seoMarkdown').textContent = '暂无数据';
     $('modeBanner').className = 'mode-banner';
   }
 
   function renderReport(report) {
-    $('reportDate').textContent = report.date;
+    $('reportDate').textContent = `${report.date} · ${report.mode === 'live' ? '实时' : report.mode === 'fixture' ? '示例' : '离线'}`;
     renderModeBanner(report.mode, report.warnings || []);
     const stats = report.stats || {};
     const rows = [
-      ['Raw Items', stats.raw_items ?? 0],
-      ['Events', stats.events ?? 0],
-      ['A-tier (80+)', stats.a_tier ?? 0],
-      ['B-tier (65–79)', stats.b_tier ?? 0],
-      ['Warnings', (report.warnings || []).length],
+      ['原始信号', stats.raw_items ?? 0, '采集条目'],
+      ['聚合事件', stats.events ?? 0, '含 Roundup'],
+      ['A级', stats.a_tier ?? 0, 'XHH 80+'],
+      ['B级', stats.b_tier ?? 0, 'XHH 65–79'],
+      ['告警', (report.warnings || []).length, '需检查'],
     ];
-    $('stats').innerHTML = rows.map(([k,v]) => `<div class="stat"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join('');
+    $('stats').innerHTML = rows.map(x => statHtml(...x)).join('');
     renderPicks(report);
     renderCandidates(report.candidates || []);
     renderSeoPick(report.seo_pick);
@@ -370,29 +474,32 @@
 
   function renderModeBanner(mode, warnings) {
     const el = $('modeBanner');
-    el.className = `mode-banner ${mode}`;
+    el.className = 'mode-banner';
     if (mode === 'fixture') {
-      el.innerHTML = '<strong>Fixture 测试报告</strong>：当前数据来自 synthetic/offline fixture，不代表真实 Steam / Epic / Reddit / 小黑盒当天信息。请切到 <strong>Live</strong> 再做选题决策。';
+      el.className = 'mode-banner fixture';
+      el.innerHTML = '<strong>示例数据报告：</strong> 当前内容来自测试 Fixture，不代表今天真实发生的游戏事件。正式选题请重新运行“实时数据”。';
     } else if (mode === 'offline') {
-      el.innerHTML = '<strong>Offline 报告</strong>：本次没有执行网络采集，只用于检查流程。';
+      el.className = 'mode-banner offline';
+      el.innerHTML = '<strong>无网络测试报告：</strong> 本次没有执行网络采集，只用于检查程序流程。';
     } else {
-      const failureCount = warnings.filter(x => /failed|unavailable|error/i.test(x)).length;
-      el.innerHTML = failureCount
-        ? `<strong>Live 报告</strong>：已执行真实网络采集，但有 ${failureCount} 个数据源/步骤出现异常，请先看 Warnings。`
-        : '<strong>Live 报告</strong>：数据来自本次真实网络采集，可进入人工审核流程。';
+      const failures = warnings.filter(x => /failed|unavailable|error/i.test(x)).length;
+      if (failures) {
+        el.className = 'mode-banner live warning';
+        el.innerHTML = `<strong>实时报告有 ${failures} 个异常：</strong> 报告仍已生成，但建议先检查右侧“运行提醒”。`;
+      }
     }
   }
 
-  function pickHtml(kind, event, draftSlug, draft) {
-    if (!event) return `<div class="pick-card"><div class="pick-kicker">${kind}</div><div class="empty">今天没有达到阈值的推荐。</div></div>`;
+  function pickHtml(kind, event, draftSlug, draft, className) {
+    if (!event) return `<div class="pick-card ${className}"><div class="pick-kicker">${esc(kind)}</div><div class="empty">今天没有达到阈值的推荐。</div></div>`;
     const reasons = (event.xhh_reasons || []).slice(0, 4).map(r => `<li>${esc(r)}</li>`).join('');
-    const draftButton = draft ? `<button class="primary tiny" onclick="openDraft('${draftSlug}')">打开 Draft</button>` : '';
-    const sources = (event.source_names || []).map(s => `<span class="tag">${esc(s)}</span>`).join(' ');
-    return `<div class="pick-card">
+    const draftButton = draft ? `<button class="primary tiny" onclick="openDraft('${draftSlug}')">审核 Draft</button>` : '';
+    const sources = (event.source_names || []).map(s => `<span class="tag">${esc(s)}</span>`).join('');
+    return `<div class="pick-card ${className}">
       <div class="pick-kicker"><span>${esc(kind)}</span><span class="score">${esc(event.xhh_score)}</span></div>
       <h3>${esc(event.event_title)}</h3>
-      <div class="meta"><span>${esc(event.game_name)}</span><span>${esc(event.category)}</span><span>Site ${esc(event.site_score)}</span></div>
-      <div style="margin-top:10px">${sources}</div>
+      <div class="meta"><span>${esc(event.game_name)}</span><span>${esc(event.category)}</span><span>网站分 ${esc(event.site_score)}</span></div>
+      <div class="source-tags">${sources}</div>
       <ul class="reason-list">${reasons || '<li>暂无评分理由</li>'}</ul>
       <div class="actions">${draftButton}<button class="ghost tiny" onclick="copyText('${jsArg(event.event_title)}')">复制选题</button></div>
     </div>`;
@@ -400,8 +507,8 @@
 
   function renderPicks(report) {
     $('picks').innerHTML =
-      pickHtml('Reach Pick', report.reach_pick, 'reach-pick', report.drafts?.['reach-pick']) +
-      pickHtml('Value Pick', report.value_pick, 'value-pick', report.drafts?.['value-pick']);
+      pickHtml('覆盖型推荐 · Reach', report.reach_pick, 'reach-pick', report.drafts?.['reach-pick'], 'reach') +
+      pickHtml('深度型推荐 · Value', report.value_pick, 'value-pick', report.drafts?.['value-pick'], 'value');
   }
 
   function renderCandidates(items) {
@@ -409,29 +516,36 @@
       $('candidateTable').innerHTML = '<div class="empty" style="padding:16px">暂无候选。</div>';
       return;
     }
-    const body = items.map((e, i) => `<tr>
-      <td class="rank">${i + 1}</td>
-      <td><strong>${esc(e.event_title)}</strong><div class="meta" style="margin-top:5px">${esc(e.game_name)}</div></td>
-      <td><span class="tag">${esc(e.category)}</span></td>
-      <td class="score-cell">${esc(e.xhh_score)}</td>
-      <td class="score-cell ${e.site_score >= 70 ? 'site-high' : ''}">${esc(e.site_score)}</td>
-      <td>${(e.source_names || []).map(esc).join(', ') || '-'}</td>
-    </tr>`).join('');
-    $('candidateTable').innerHTML = `<table><thead><tr><th>#</th><th>Event</th><th>Type</th><th>XHH</th><th>Site(pre)</th><th>Sources</th></tr></thead><tbody>${body}</tbody></table>`;
+    const body = items.map((e, i) => {
+      const firstSource = safeUrl((e.source_urls || [])[0]);
+      const sourceLink = firstSource ? `<a class="source-link" href="${esc(firstSource)}" target="_blank" rel="noreferrer">查看来源</a>` : '-';
+      return `<tr>
+        <td class="rank">${i + 1}</td>
+        <td><strong>${esc(e.event_title)}</strong><div class="meta" style="margin-top:5px">${esc(e.game_name)}</div></td>
+        <td><span class="tag">${esc(e.category)}</span></td>
+        <td class="score-cell">${esc(e.xhh_score)}</td>
+        <td class="score-cell ${e.site_score >= 70 ? 'site-high' : ''}">${esc(e.site_score)}</td>
+        <td>${(e.source_names || []).map(esc).join(', ') || '-'}</td>
+        <td>${sourceLink}</td>
+      </tr>`;
+    }).join('');
+    $('candidateTable').innerHTML = `<table><thead><tr><th>#</th><th>事件</th><th>类型</th><th>XHH</th><th>网站分</th><th>来源</th><th></th></tr></thead><tbody>${body}</tbody></table>`;
   }
 
   function renderSeoPick(event) {
     if (!event) { $('seoPick').innerHTML = '<div class="empty">暂无候选。</div>'; return; }
-    const sourceLinks = (event.source_urls || []).slice(0,4)
+    const sourceLinks = (event.source_urls || []).slice(0, 4)
       .map((url, i) => [safeUrl(url), i])
       .filter(([url]) => url)
       .map(([url, i]) => `<a href="${esc(url)}" target="_blank" rel="noreferrer">来源 ${i + 1}</a>`)
       .join(' · ');
+    const reasons = (event.site_reasons || []).slice(0, 3).map(x => `<li>${esc(x)}</li>`).join('');
     $('seoPick').innerHTML = `<div class="seo-card">
-      <div class="score" style="float:right">${esc(event.site_score)}</div>
+      <div class="score seo-score">${esc(event.site_score)}</div>
       <h3>${esc(event.event_title)}</h3>
       <div class="meta"><span>${esc(event.category)}</span><span>XHH ${esc(event.xhh_score)}</span></div>
-      <p style="color:var(--soft);font-size:13px;line-height:1.65;margin:14px 0">这是 PRE-SERP 分数，只表示值得进一步验证，不等于“应该马上建站”。</p>
+      ${reasons ? `<ul class="reason-list">${reasons}</ul>` : ''}
+      <p class="seo-note">这是 PRE-SERP 分数，只表示“值得验证”，不等于应该立刻建站。</p>
       <div class="meta">${sourceLinks || '暂无来源链接'}</div>
     </div>`;
   }
@@ -446,7 +560,7 @@
   function renderWarnings(items) {
     $('warnings').innerHTML = items.length
       ? `<ul class="warning-list">${items.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`
-      : '<div class="empty">没有 Warning。</div>';
+      : '<div class="empty">本次没有需要处理的告警。</div>';
   }
 
   function renderHistory(dates) {
@@ -461,20 +575,18 @@
   }
 
   async function startRun() {
+    if (state.serverStatus === 'down') return;
     const mode = $('modeSelect').value;
     const config = $('configSelect').value;
     const date = $('dateInput').value || null;
-    $('runButton').disabled = true;
-    setStatus(mode === 'live' ? '真实网络采集中，可能需要几分钟…' : '正在运行测试流程…', true);
+    setServerStatus('busy');
+    setStatus(mode === 'live' ? '正在采集真实网络数据，通常需要几十秒到几分钟…' : '正在运行测试流程…', true);
     try {
-      const job = await api('/api/run', {
-        method: 'POST',
-        body: JSON.stringify({ mode, config, date })
-      });
+      const job = await api('/api/run', { method: 'POST', body: JSON.stringify({ mode, config, date }) });
       state.jobId = job.id;
       pollJob(job.id);
     } catch (err) {
-      $('runButton').disabled = false;
+      await checkHealth();
       setStatus(`运行失败：${err.message}`, false);
     }
   }
@@ -483,24 +595,28 @@
     try {
       const job = await api(`/api/jobs/${jobId}`);
       if (job.status === 'done') {
-        $('runButton').disabled = false;
+        state.jobId = null;
         state.report = job.report;
         state.activeDate = job.date;
         renderReport(job.report);
         await loadReports(job.date);
+        setServerStatus('ready');
         setStatus(`完成：${job.date}`, false);
         toast('今日雷达已生成');
         return;
       }
       if (job.status === 'error') {
-        $('runButton').disabled = false;
+        state.jobId = null;
+        setServerStatus('ready');
         setStatus(`运行失败：${job.error}`, false);
         return;
       }
-      setStatus(job.status === 'queued' ? '任务已排队…' : '采集 / 聚类 / 评分 / 生成 Draft 中…', true);
+      setServerStatus('busy');
+      setStatus(job.status === 'queued' ? '任务已排队…' : '采集 → 聚类 → 评分 → 生成 Draft…', true);
       setTimeout(() => pollJob(jobId), 1300);
     } catch (err) {
-      $('runButton').disabled = false;
+      state.jobId = null;
+      await checkHealth();
       setStatus(`任务状态读取失败：${err.message}`, false);
     }
   }
@@ -509,7 +625,7 @@
     const draft = state.report?.drafts?.[slug];
     if (!draft) return toast('这个选题没有 Draft');
     state.activeDraftSlug = slug;
-    $('drawerTitle').textContent = slug === 'reach-pick' ? 'Reach Pick Draft' : slug === 'value-pick' ? 'Value Pick Draft' : 'Alternative Draft';
+    $('drawerTitle').textContent = slug === 'reach-pick' ? '覆盖型推荐 Draft' : slug === 'value-pick' ? '深度型推荐 Draft' : '备选 Draft';
     $('draftTitle').value = draft.selected_title || '';
     $('draftBody').value = draft.body_markdown || '';
     $('commentHook').value = draft.comment_hook || '';
@@ -528,10 +644,7 @@
     $('drawerBackdrop').classList.remove('on');
     $('drawer').classList.remove('on');
   }
-
-  function chooseTitle(encoded) {
-    $('draftTitle').value = decodeURIComponent(encoded);
-  }
+  function chooseTitle(encoded) { $('draftTitle').value = decodeURIComponent(encoded); }
 
   async function copyDraft() {
     const text = `${$('draftTitle').value}\n\n${$('draftBody').value}\n\n${$('commentHook').value}`.trim();
@@ -544,16 +657,10 @@
     try {
       const result = await api(`/api/drafts/${state.activeDate}/${state.activeDraftSlug}` + configQuery(), {
         method: 'PUT',
-        body: JSON.stringify({
-          title: $('draftTitle').value,
-          body_markdown: $('draftBody').value,
-          comment_hook: $('commentHook').value,
-        })
+        body: JSON.stringify({ title: $('draftTitle').value, body_markdown: $('draftBody').value, comment_hook: $('commentHook').value })
       });
       toast(`已保存：${result.path}`);
-    } catch (err) {
-      toast(`保存失败：${err.message}`);
-    }
+    } catch (err) { toast(`保存失败：${err.message}`); }
   }
 
   async function copyText(encoded) {
@@ -561,8 +668,20 @@
     toast('已复制');
   }
 
+  async function reconnect() {
+    setStatus('正在重新连接本地服务…', true);
+    const health = await checkHealth();
+    if (!health) { setStatus('仍然无法连接，请重新双击 scripts/start-web.command', false); return; }
+    try {
+      await loadMeta();
+      await loadReports();
+      setStatus('本地服务已恢复', false);
+    } catch (err) { setStatus(`恢复失败：${err.message}`, false); }
+  }
+
   $('runButton').addEventListener('click', startRun);
   $('refreshButton').addEventListener('click', () => loadReports(state.activeDate).catch(err => setStatus(err.message, false)));
+  $('retryConnection').addEventListener('click', reconnect);
   $('configSelect').addEventListener('change', () => { state.activeDate = null; loadReports().catch(err => setStatus(err.message, false)); });
   $('closeDrawer').addEventListener('click', closeDraft);
   $('drawerBackdrop').addEventListener('click', closeDraft);
@@ -570,15 +689,22 @@
   $('saveDraft').addEventListener('click', saveDraft);
 
   (async function boot() {
+    const health = await checkHealth();
+    if (!health) {
+      setStatus('本地服务已停止，请重新启动 Game Content Radar。', false);
+      renderEmptyDashboard();
+      return;
+    }
     try {
       await loadMeta();
       await loadReports();
-      if (!state.report) setStatus('没有现成报告，可以先用 Fixture 验证 UI，再切 Live。', false);
+      if (!state.report) setStatus('准备就绪，点击“运行今日雷达”。', false);
+      else setStatus('准备就绪', false);
     } catch (err) {
-      $('serverState').textContent = '服务异常';
       setStatus(`初始化失败：${err.message}`, false);
       renderEmptyDashboard();
     }
+    setInterval(checkHealth, 5000);
   })();
 </script>
 </body>

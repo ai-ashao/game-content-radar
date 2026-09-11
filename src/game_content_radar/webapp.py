@@ -20,6 +20,7 @@ from game_content_radar.pipeline import run_daily
 
 _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _DRAFT_SLUGS = {"reach-pick", "value-pick", "alternative"}
+_WEB_VERSION = "0.3.0"
 
 
 class RunRequest(BaseModel):
@@ -97,16 +98,59 @@ def _warnings_from_markdown(path: Path) -> list[str]:
     return warnings
 
 
-def _select_cards_from_events(events: list[dict[str, Any]]) -> tuple[dict[str, Any] | None, dict[str, Any] | None, dict[str, Any] | None]:
+def _select_cards_from_events(
+    events: list[dict[str, Any]],
+) -> tuple[dict[str, Any] | None, dict[str, Any] | None, dict[str, Any] | None]:
     if not events:
         return None, None, None
     ranked = sorted(events, key=lambda e: ((e.get("xhh_score") or {}).get("total", 0)), reverse=True)
-    reach_categories = {"sale_roundup", "freebie_roundup", "player_spike_story", "major_update", "controversy", "release", "community_trend", "free_game"}
-    value_categories = {"guide", "troubleshooting", "game_analysis", "player_spike_story", "major_update", "controversy", "reputation_shift"}
-    reach = next((e for e in ranked if e.get("category") in reach_categories and ((e.get("xhh_score") or {}).get("total", 0)) >= 60), ranked[0])
-    value = next((e for e in ranked if e.get("event_id") != reach.get("event_id") and e.get("category") in value_categories and ((e.get("xhh_score") or {}).get("total", 0)) >= 60), None)
+    reach_categories = {
+        "sale_roundup",
+        "freebie_roundup",
+        "player_spike_story",
+        "major_update",
+        "controversy",
+        "release",
+        "community_trend",
+        "free_game",
+    }
+    value_categories = {
+        "guide",
+        "troubleshooting",
+        "game_analysis",
+        "player_spike_story",
+        "major_update",
+        "controversy",
+        "reputation_shift",
+    }
+    reach = next(
+        (
+            e
+            for e in ranked
+            if e.get("category") in reach_categories and ((e.get("xhh_score") or {}).get("total", 0)) >= 60
+        ),
+        ranked[0],
+    )
+    value = next(
+        (
+            e
+            for e in ranked
+            if e.get("event_id") != reach.get("event_id")
+            and e.get("category") in value_categories
+            and ((e.get("xhh_score") or {}).get("total", 0)) >= 60
+        ),
+        None,
+    )
     if value is None:
-        value = next((e for e in ranked if e.get("event_id") != reach.get("event_id") and ((e.get("xhh_score") or {}).get("total", 0)) >= 68), None)
+        value = next(
+            (
+                e
+                for e in ranked
+                if e.get("event_id") != reach.get("event_id")
+                and ((e.get("xhh_score") or {}).get("total", 0)) >= 68
+            ),
+            None,
+        )
     seo = max(events, key=lambda e: ((e.get("site_score") or {}).get("total", 0)))
     return reach, value, seo
 
@@ -186,9 +230,10 @@ def create_app(base_dir: str | Path = ".", default_config: str = "config/codex.y
     state: dict[str, dict[str, Any]] = {}
     state_lock = threading.Lock()
 
-    app = FastAPI(title="Game Content Radar", version="0.2.0")
+    app = FastAPI(title="Game Content Radar", version=_WEB_VERSION)
     app.state.base_dir = root
     app.state.default_config = default_config
+    app.state.started_at = datetime.now().isoformat(timespec="seconds")
 
     def config_path(config_value: str | None) -> Path:
         return _resolve_under_root(root, config_value or default_config)
@@ -202,6 +247,29 @@ def create_app(base_dir: str | Path = ".", default_config: str = "config/codex.y
         html = files("game_content_radar").joinpath("web_ui/index.html").read_text(encoding="utf-8")
         return HTMLResponse(html)
 
+    @app.get("/api/health")
+    def health() -> dict[str, Any]:
+        with state_lock:
+            active = next(
+                (job for job in state.values() if job.get("status") in {"queued", "running"}),
+                None,
+            )
+            active_job = None
+            if active:
+                active_job = {
+                    "id": active.get("id"),
+                    "status": active.get("status"),
+                    "mode": active.get("mode"),
+                    "started_at": active.get("started_at") or active.get("created_at"),
+                }
+        return {
+            "ok": True,
+            "status": "busy" if active_job else "ready",
+            "version": _WEB_VERSION,
+            "started_at": app.state.started_at,
+            "active_job": active_job,
+        }
+
     @app.get("/api/meta")
     def meta() -> dict[str, Any]:
         configs = []
@@ -213,6 +281,7 @@ def create_app(base_dir: str | Path = ".", default_config: str = "config/codex.y
             "default_config": default_config,
             "configs": configs,
             "fixture_available": (root / "tests/fixtures/sample-items.json").exists(),
+            "web_version": _WEB_VERSION,
         }
 
     @app.get("/api/reports")
@@ -262,19 +331,23 @@ def create_app(base_dir: str | Path = ".", default_config: str = "config/codex.y
             )
             payload = build_report_payload(result.report_dir)
             with state_lock:
-                state[job_id].update({
-                    "status": "done",
-                    "finished_at": datetime.now().isoformat(timespec="seconds"),
-                    "date": result.report_dir.name,
-                    "report": payload,
-                })
+                state[job_id].update(
+                    {
+                        "status": "done",
+                        "finished_at": datetime.now().isoformat(timespec="seconds"),
+                        "date": result.report_dir.name,
+                        "report": payload,
+                    }
+                )
         except Exception as exc:  # fail visibly in the local dashboard
             with state_lock:
-                state[job_id].update({
-                    "status": "error",
-                    "finished_at": datetime.now().isoformat(timespec="seconds"),
-                    "error": str(exc),
-                })
+                state[job_id].update(
+                    {
+                        "status": "error",
+                        "finished_at": datetime.now().isoformat(timespec="seconds"),
+                        "error": str(exc),
+                    }
+                )
 
     @app.post("/api/run", status_code=202)
     def start_run(request: RunRequest) -> dict[str, Any]:
@@ -290,6 +363,14 @@ def create_app(base_dir: str | Path = ".", default_config: str = "config/codex.y
                 "mode": request.mode,
                 "created_at": datetime.now().isoformat(timespec="seconds"),
             }
+            # Keep local process memory bounded across long-running desktop sessions.
+            completed = [
+                key
+                for key, value in state.items()
+                if key != job_id and value.get("status") in {"done", "error"}
+            ]
+            for key in completed[:-20]:
+                state.pop(key, None)
         thread = threading.Thread(target=run_job, args=(job_id, request), daemon=True)
         thread.start()
         return state[job_id]
@@ -303,7 +384,12 @@ def create_app(base_dir: str | Path = ".", default_config: str = "config/codex.y
             return dict(value)
 
     @app.put("/api/drafts/{date_label}/{slug}")
-    def save_draft(date_label: str, slug: str, request: DraftSaveRequest, config: str | None = None) -> dict[str, Any]:
+    def save_draft(
+        date_label: str,
+        slug: str,
+        request: DraftSaveRequest,
+        config: str | None = None,
+    ) -> dict[str, Any]:
         date_label = _safe_date(date_label)
         if slug not in _DRAFT_SLUGS:
             raise HTTPException(status_code=400, detail="Unknown draft slug")
@@ -314,7 +400,11 @@ def create_app(base_dir: str | Path = ".", default_config: str = "config/codex.y
         edited_dir = report_dir / "xhh" / "edited"
         edited_dir.mkdir(parents=True, exist_ok=True)
         path = edited_dir / f"{slug}.md"
-        content = f"# {request.title.strip()}\n\n{request.body_markdown.strip()}\n\n---\n\n**互动问题：** {request.comment_hook.strip()}\n"
+        content = (
+            f"# {request.title.strip()}\n\n"
+            f"{request.body_markdown.strip()}\n\n"
+            f"---\n\n**互动问题：** {request.comment_hook.strip()}\n"
+        )
         path.write_text(content, encoding="utf-8")
         return {"saved": True, "path": str(path.relative_to(root))}
 

@@ -4,6 +4,8 @@ __pycache__/
 .pytest_cache/
 .coverage
 reports/
+logs/
+.game-content-radar-web.pid
 data/*.db
 data/*.sqlite*
 .DS_Store
