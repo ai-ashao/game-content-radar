@@ -1,0 +1,707 @@
+[
+  {
+    "id": "sale-1",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900001/",
+    "source_type": "official",
+    "game_name": "Sample Game 1",
+    "title": "Sample Game 1",
+    "summary": "Steam specials snapshot for Sample Game 1, discount 37%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900001,
+      "bucket": "specials",
+      "discount_percent": 37,
+      "original_price_minor": 674,
+      "final_price_minor": 337,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900001.jpg"
+    ]
+  },
+  {
+    "id": "sale-2",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900002/",
+    "source_type": "official",
+    "game_name": "Sample Game 2",
+    "title": "Sample Game 2",
+    "summary": "Steam specials snapshot for Sample Game 2, discount 44%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900002,
+      "bucket": "specials",
+      "discount_percent": 44,
+      "original_price_minor": 748,
+      "final_price_minor": 374,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900002.jpg"
+    ]
+  },
+  {
+    "id": "sale-3",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900003/",
+    "source_type": "official",
+    "game_name": "Sample Game 3",
+    "title": "Sample Game 3",
+    "summary": "Steam specials snapshot for Sample Game 3, discount 51%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900003,
+      "bucket": "specials",
+      "discount_percent": 51,
+      "original_price_minor": 822,
+      "final_price_minor": 411,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900003.jpg"
+    ]
+  },
+  {
+    "id": "sale-4",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900004/",
+    "source_type": "official",
+    "game_name": "Sample Game 4",
+    "title": "Sample Game 4",
+    "summary": "Steam specials snapshot for Sample Game 4, discount 58%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900004,
+      "bucket": "specials",
+      "discount_percent": 58,
+      "original_price_minor": 896,
+      "final_price_minor": 448,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900004.jpg"
+    ]
+  },
+  {
+    "id": "sale-5",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900005/",
+    "source_type": "official",
+    "game_name": "Sample Game 5",
+    "title": "Sample Game 5",
+    "summary": "Steam specials snapshot for Sample Game 5, discount 65%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900005,
+      "bucket": "specials",
+      "discount_percent": 65,
+      "original_price_minor": 970,
+      "final_price_minor": 485,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900005.jpg"
+    ]
+  },
+  {
+    "id": "sale-6",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900006/",
+    "source_type": "official",
+    "game_name": "Sample Game 6",
+    "title": "Sample Game 6",
+    "summary": "Steam specials snapshot for Sample Game 6, discount 72%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900006,
+      "bucket": "specials",
+      "discount_percent": 72,
+      "original_price_minor": 1044,
+      "final_price_minor": 522,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900006.jpg"
+    ]
+  },
+  {
+    "id": "sale-7",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900007/",
+    "source_type": "official",
+    "game_name": "Sample Game 7",
+    "title": "Sample Game 7",
+    "summary": "Steam specials snapshot for Sample Game 7, discount 79%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900007,
+      "bucket": "specials",
+      "discount_percent": 79,
+      "original_price_minor": 1118,
+      "final_price_minor": 559,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900007.jpg"
+    ]
+  },
+  {
+    "id": "sale-8",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900008/",
+    "source_type": "official",
+    "game_name": "Sample Game 8",
+    "title": "Sample Game 8",
+    "summary": "Steam specials snapshot for Sample Game 8, discount 86%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900008,
+      "bucket": "specials",
+      "discount_percent": 86,
+      "original_price_minor": 1192,
+      "final_price_minor": 596,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900008.jpg"
+    ]
+  },
+  {
+    "id": "sale-9",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900009/",
+    "source_type": "official",
+    "game_name": "Sample Game 9",
+    "title": "Sample Game 9",
+    "summary": "Steam specials snapshot for Sample Game 9, discount 32%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900009,
+      "bucket": "specials",
+      "discount_percent": 32,
+      "original_price_minor": 1266,
+      "final_price_minor": 633,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900009.jpg"
+    ]
+  },
+  {
+    "id": "sale-10",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900010/",
+    "source_type": "official",
+    "game_name": "Sample Game 10",
+    "title": "Sample Game 10",
+    "summary": "Steam specials snapshot for Sample Game 10, discount 39%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900010,
+      "bucket": "specials",
+      "discount_percent": 39,
+      "original_price_minor": 1340,
+      "final_price_minor": 670,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900010.jpg"
+    ]
+  },
+  {
+    "id": "sale-11",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900011/",
+    "source_type": "official",
+    "game_name": "Sample Game 11",
+    "title": "Sample Game 11",
+    "summary": "Steam specials snapshot for Sample Game 11, discount 46%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900011,
+      "bucket": "specials",
+      "discount_percent": 46,
+      "original_price_minor": 1414,
+      "final_price_minor": 707,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900011.jpg"
+    ]
+  },
+  {
+    "id": "sale-12",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900012/",
+    "source_type": "official",
+    "game_name": "Sample Game 12",
+    "title": "Sample Game 12",
+    "summary": "Steam specials snapshot for Sample Game 12, discount 53%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900012,
+      "bucket": "specials",
+      "discount_percent": 53,
+      "original_price_minor": 1488,
+      "final_price_minor": 744,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900012.jpg"
+    ]
+  },
+  {
+    "id": "sale-13",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900013/",
+    "source_type": "official",
+    "game_name": "Sample Game 13",
+    "title": "Sample Game 13",
+    "summary": "Steam specials snapshot for Sample Game 13, discount 60%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900013,
+      "bucket": "specials",
+      "discount_percent": 60,
+      "original_price_minor": 1562,
+      "final_price_minor": 781,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900013.jpg"
+    ]
+  },
+  {
+    "id": "sale-14",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900014/",
+    "source_type": "official",
+    "game_name": "Sample Game 14",
+    "title": "Sample Game 14",
+    "summary": "Steam specials snapshot for Sample Game 14, discount 67%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900014,
+      "bucket": "specials",
+      "discount_percent": 67,
+      "original_price_minor": 1636,
+      "final_price_minor": 818,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900014.jpg"
+    ]
+  },
+  {
+    "id": "sale-15",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900015/",
+    "source_type": "official",
+    "game_name": "Sample Game 15",
+    "title": "Sample Game 15",
+    "summary": "Steam specials snapshot for Sample Game 15, discount 74%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900015,
+      "bucket": "specials",
+      "discount_percent": 74,
+      "original_price_minor": 1710,
+      "final_price_minor": 855,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900015.jpg"
+    ]
+  },
+  {
+    "id": "sale-16",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900016/",
+    "source_type": "official",
+    "game_name": "Sample Game 16",
+    "title": "Sample Game 16",
+    "summary": "Steam specials snapshot for Sample Game 16, discount 81%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900016,
+      "bucket": "specials",
+      "discount_percent": 81,
+      "original_price_minor": 1784,
+      "final_price_minor": 892,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900016.jpg"
+    ]
+  },
+  {
+    "id": "sale-17",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900017/",
+    "source_type": "official",
+    "game_name": "Sample Game 17",
+    "title": "Sample Game 17",
+    "summary": "Steam specials snapshot for Sample Game 17, discount 88%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900017,
+      "bucket": "specials",
+      "discount_percent": 88,
+      "original_price_minor": 1858,
+      "final_price_minor": 929,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900017.jpg"
+    ]
+  },
+  {
+    "id": "sale-18",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900018/",
+    "source_type": "official",
+    "game_name": "Sample Game 18",
+    "title": "Sample Game 18",
+    "summary": "Steam specials snapshot for Sample Game 18, discount 34%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900018,
+      "bucket": "specials",
+      "discount_percent": 34,
+      "original_price_minor": 1932,
+      "final_price_minor": 966,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900018.jpg"
+    ]
+  },
+  {
+    "id": "sale-19",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900019/",
+    "source_type": "official",
+    "game_name": "Sample Game 19",
+    "title": "Sample Game 19",
+    "summary": "Steam specials snapshot for Sample Game 19, discount 41%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900019,
+      "bucket": "specials",
+      "discount_percent": 41,
+      "original_price_minor": 2006,
+      "final_price_minor": 1003,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900019.jpg"
+    ]
+  },
+  {
+    "id": "sale-20",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900020/",
+    "source_type": "official",
+    "game_name": "Sample Game 20",
+    "title": "Sample Game 20",
+    "summary": "Steam specials snapshot for Sample Game 20, discount 48%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900020,
+      "bucket": "specials",
+      "discount_percent": 48,
+      "original_price_minor": 2080,
+      "final_price_minor": 1040,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900020.jpg"
+    ]
+  },
+  {
+    "id": "sale-21",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900021/",
+    "source_type": "official",
+    "game_name": "Sample Game 21",
+    "title": "Sample Game 21",
+    "summary": "Steam specials snapshot for Sample Game 21, discount 55%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900021,
+      "bucket": "specials",
+      "discount_percent": 55,
+      "original_price_minor": 2154,
+      "final_price_minor": 1077,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900021.jpg"
+    ]
+  },
+  {
+    "id": "sale-22",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900022/",
+    "source_type": "official",
+    "game_name": "Sample Game 22",
+    "title": "Sample Game 22",
+    "summary": "Steam specials snapshot for Sample Game 22, discount 62%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900022,
+      "bucket": "specials",
+      "discount_percent": 62,
+      "original_price_minor": 2228,
+      "final_price_minor": 1114,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900022.jpg"
+    ]
+  },
+  {
+    "id": "sale-23",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900023/",
+    "source_type": "official",
+    "game_name": "Sample Game 23",
+    "title": "Sample Game 23",
+    "summary": "Steam specials snapshot for Sample Game 23, discount 69%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900023,
+      "bucket": "specials",
+      "discount_percent": 69,
+      "original_price_minor": 2302,
+      "final_price_minor": 1151,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900023.jpg"
+    ]
+  },
+  {
+    "id": "sale-24",
+    "source": "steam_store",
+    "source_url": "https://store.steampowered.com/app/900024/",
+    "source_type": "official",
+    "game_name": "Sample Game 24",
+    "title": "Sample Game 24",
+    "summary": "Steam specials snapshot for Sample Game 24, discount 76%",
+    "published_at": "2026-09-11T00:30:00+00:00",
+    "language": "en",
+    "category": "sale",
+    "metrics": {
+      "appid": 900024,
+      "bucket": "specials",
+      "discount_percent": 76,
+      "original_price_minor": 2376,
+      "final_price_minor": 1188,
+      "currency": "CNY",
+      "historical_low_verified": false
+    },
+    "media_urls": [
+      "https://cdn.example.com/900024.jpg"
+    ]
+  },
+  {
+    "id": "free-1",
+    "source": "epic",
+    "source_url": "https://store.epicgames.com/zh-CN/p/free-game-1",
+    "source_type": "official",
+    "game_name": "Free Game 1",
+    "title": "Epic free game: Free Game 1",
+    "summary": "Free to claim this week on the Epic Games Store.",
+    "published_at": "2026-09-11T00:15:00+00:00",
+    "language": "zh-CN",
+    "category": "free_game",
+    "metrics": {
+      "original_price_minor": 6800,
+      "discount_price_minor": 0,
+      "currency": "CNY",
+      "free_until": "2026-09-17T15:00:00+00:00"
+    },
+    "media_urls": [
+      "https://cdn.example.com/free-1.jpg"
+    ]
+  },
+  {
+    "id": "free-2",
+    "source": "epic",
+    "source_url": "https://store.epicgames.com/zh-CN/p/free-game-2",
+    "source_type": "official",
+    "game_name": "Free Game 2",
+    "title": "Epic free game: Free Game 2",
+    "summary": "Free to claim this week on the Epic Games Store.",
+    "published_at": "2026-09-11T00:15:00+00:00",
+    "language": "zh-CN",
+    "category": "free_game",
+    "metrics": {
+      "original_price_minor": 6800,
+      "discount_price_minor": 0,
+      "currency": "CNY",
+      "free_until": "2026-09-17T15:00:00+00:00"
+    },
+    "media_urls": [
+      "https://cdn.example.com/free-2.jpg"
+    ]
+  },
+  {
+    "id": "free-3",
+    "source": "epic",
+    "source_url": "https://store.epicgames.com/zh-CN/p/free-game-3",
+    "source_type": "official",
+    "game_name": "Free Game 3",
+    "title": "Epic free game: Free Game 3",
+    "summary": "Free to claim this week on the Epic Games Store.",
+    "published_at": "2026-09-11T00:15:00+00:00",
+    "language": "zh-CN",
+    "category": "free_game",
+    "metrics": {
+      "original_price_minor": 6800,
+      "discount_price_minor": 0,
+      "currency": "CNY",
+      "free_until": "2026-09-17T15:00:00+00:00"
+    },
+    "media_urls": [
+      "https://cdn.example.com/free-3.jpg"
+    ]
+  },
+  {
+    "id": "spike-official",
+    "source": "steam_players",
+    "source_url": "https://store.steampowered.com/app/777777/",
+    "source_type": "official",
+    "game_name": "Revival Game",
+    "title": "Revival Game player count spike",
+    "summary": "Current players increased after a major update.",
+    "published_at": "2026-09-11T00:45:00+00:00",
+    "language": "en",
+    "category": "player_spike_story",
+    "metrics": {
+      "appid": 777777,
+      "player_count": 42000,
+      "previous_players_24h": 12000,
+      "growth_24h_percent": 250.0
+    }
+  },
+  {
+    "id": "spike-reddit",
+    "source": "reddit",
+    "source_url": "https://reddit.com/r/gaming/comments/sample/",
+    "source_type": "community",
+    "game_name": "Revival Game",
+    "title": "Revival Game is suddenly everywhere after the update",
+    "summary": "Players are discussing the return of the game after its new update.",
+    "published_at": "2026-09-11T00:40:00+00:00",
+    "language": "en",
+    "category": "community_trend",
+    "metrics": {
+      "subreddit": "gaming"
+    }
+  },
+  {
+    "id": "workshop-help",
+    "source": "reddit",
+    "source_url": "https://reddit.com/r/Steam/comments/workshop-stuck/",
+    "source_type": "community",
+    "game_name": "",
+    "title": "Steam Workshop download stuck and not working after update",
+    "summary": "Users report workshop downloads stuck and ask how to fix the error.",
+    "published_at": "2026-09-11T00:50:00+00:00",
+    "language": "en",
+    "category": "community_trend",
+    "metrics": {
+      "subreddit": "Steam"
+    }
+  },
+  {
+    "id": "update-1",
+    "source": "steam_news",
+    "source_url": "https://store.steampowered.com/news/app/888888/view/sample",
+    "source_type": "official",
+    "game_name": "Big Update Game",
+    "title": "Big Update Game - Major Update 2.0",
+    "summary": "Version 2.0 adds a new mode, balance changes, and quality-of-life improvements.",
+    "published_at": "2026-09-11T00:20:00+00:00",
+    "language": "en",
+    "category": "major_update",
+    "metrics": {
+      "appid": 888888
+    },
+    "media_urls": [
+      "https://cdn.example.com/update.jpg"
+    ]
+  }
+]

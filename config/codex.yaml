@@ -1,0 +1,54 @@
+# Recommended preset when Codex CLI is installed and authenticated.
+
+sources:
+  steam_store: true
+  steam_news: true
+  steam_players: true
+  reddit: true
+  epic: true
+  xiaoheihe: false
+  steamdb: false
+  official_rss: false
+
+collection:
+  country: CN
+  request_timeout_seconds: 15
+  sale_roundup_min_items: 20
+  sale_roundup_min_discount: 30
+  player_scan_limit: 30
+  subreddits:
+    - gaming
+    - Steam
+  watched_apps:
+    730: Counter-Strike 2
+  official_rss: []
+
+content:
+  language: zh-CN
+  daily_candidates: 10
+  daily_drafts: 2
+  recommended_posts: 2
+
+paths:
+  reports: reports
+  data: data
+
+existing_sites:
+  WorkshopFetch:
+    - steam workshop
+    - workshop download
+    - steamcmd
+    - workshop error
+  GameKitHQ:
+    - game tool
+    - calculator
+    - tracker
+    - generator
+  FN Sprite Hub:
+    - fortnite sprite
+    - sprite tracker
+
+llm:
+  mode: codex
+  codex_binary: codex
+  codex_timeout_seconds: 240
